@@ -1,0 +1,28 @@
+
+type Categorie @model {
+  id: ID! @isUnique     # required system field (read-only)
+  createdAt: DateTime!  # optional system field (read-only)
+  updatedAt: DateTime!  # optional system field (read-only)
+  name: String!
+  path: String!
+}
+
+
+type Comment @model {
+  id: ID! @isUnique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  body: String!
+  title: String!
+}
+
+
+type Post @model {
+  id: ID! @isUnique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  body: String!
+  title: String!
+}
+
+
