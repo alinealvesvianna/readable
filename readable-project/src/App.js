@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 // import Form from './components/Form'
 import HomeContainer from './containers/HomeContainer';
 import PostContainer from './containers/PostContainer'
-// import { Route, Switch } from 'react-router-dom';
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
-import { Route, withRouter } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 class App extends Component {
 
@@ -34,13 +33,17 @@ class App extends Component {
         render={
           ({match}) => {
             let id = match.params.id;
-            let post = allPostsQuery.allPosts.find((post) => {
-              if (post.id === id) {
-                return post
-              }
-            })
+            let post;
+
+            if(allPostsQuery.allPosts){
+                 post = allPostsQuery.allPosts.find((post) => {
+                    if (post.id === id) {
+                        return post
+                    }
+                })
+            } 
             return (
-              <PostContainer id={id} post={post}/>
+              <PostContainer id={id} post={post ? post : id}/>
             )
           }
         }
@@ -62,7 +65,5 @@ const ALL_POSTS_QUERY = gql`
   }
 `
 
-// export default graphql(ALL_POSTS_QUERY, { name: 'allPostsQuery' }) (App)
-
-export default withRouter(graphql(ALL_POSTS_QUERY, { name: 'allPostsQuery' })(App));
+export default graphql(ALL_POSTS_QUERY, { name: 'allPostsQuery' }) (App)
 
