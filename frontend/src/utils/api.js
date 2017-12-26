@@ -6,7 +6,7 @@ axios.defaults.headers.common["Authorization"] = "bananinha";
   
 
 export const getAllPostsApi = () => 
-    axios.get("/posts/jsjsj")
+    axios.get("/posts")
     .then(response => {
         console.log(response.data)
         return response.data
@@ -15,12 +15,11 @@ export const getAllPostsApi = () =>
         if (error.response) {
           checkStatus(error.response.status)
         } else if (error.request) {
-            throw Error(`Ops... Erro de requisição ${error.request}`);
+            throw Error(`Ops... Erro de requisição ${error.request.responseText}`);
         } else {
-          throw Error(`Ops... Alguma coisa deu muito errado ${error.message}`);
+          throw Error(`Ops... Alguma coisa deu muito errado ${error.message.responseText}`);
         }
       });
-
 
 
 

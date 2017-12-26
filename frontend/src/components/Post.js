@@ -1,24 +1,18 @@
-// import React, { Component } from 'react'
 import React from 'react'
-
-
-// class Post extends Component {
-//     render(){
-//         const {post} = this.props
-//         return(
-//             <div>
-//                 <h1>{post.title}</h1>
-//             </div>
-//         )
-//     }
-// }
+import {  Link } from 'react-router-dom';
 
 const Post = (props) => {
-
-    const {post} = this.props
+    const {id, title} = props.post
     return(
         <div>
-            <h1>{post.title}</h1>
+            <Link
+            role="button"
+            to={{
+            pathname: `/post/${id}`,
+            }}>
+
+                <h1>{title}</h1>
+            </Link>
         </div>
     )
 }

@@ -1,64 +1,18 @@
-// import React from 'react';
-// import ReactDOM from 'react-dom';
-// import App from './components/App';
+import React from 'react';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import configureStore from './store/configureStore';
+import { BrowserRouter } from 'react-router-dom'
 
-// import { createStore, applyMiddleware, compose } from 'redux'
-// import { Provider } from 'react-redux'
-// import rootReducer from './reducers/index'
+import App from './components/App';
 
-// const logger = store => next => action => {
-//     console.group(action.type)
-//     console.info('dispatching', action)
-//     let result = next(action)
-//     console.log('next state', store.getState())
-//     console.groupEnd(action.type)
-//     return result
-//   }
+const store = configureStore();
 
-//   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-
-
-//   const store = createStore(
-//     rootReducer,
-//     composeEnhancers(
-//       applyMiddleware(logger)
-//     )
-//   )
-
-
-
-
-
-// ReactDOM.render(
-//     <Provider store={store}>
-//       <App />
-//     </Provider>,
-//     document.getElementById('root')
-//   )
-
-
-  import React from 'react';
-  import ReactDOM from 'react-dom';
-  
-//   import { BrowserRouter } from 'react-router-dom'
-  import App from './components/App';
-  import {createStore, applyMiddleware, compose} from 'redux';
-  import thunk from 'redux-thunk';
-  import rootReducer from './reducers/index'
-  import {Provider} from 'react-redux';
-//   import {getCategories} from './actions';
-  
-  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-  
-  const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
-  
-//   store.dispatch(getCategories());
-  
-  ReactDOM.render(
+render(
     <Provider store={store}>
+    <BrowserRouter>
         <App/>
+    </BrowserRouter>
     </Provider>,
-  document.getElementById('root'));
-  
-
-  
+    document.getElementById('root')
+);

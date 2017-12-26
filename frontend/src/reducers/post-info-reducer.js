@@ -1,13 +1,12 @@
 import * as types from '../actions/actions-types'
 
 
-const defaultState = {
-    allPosts: {},
+const initialState = {
     loading: false,
     error: null
   }
   
-  export default (state = defaultState, action) => {
+  export default (state = initialState, action) => {
     switch (action.type) {
 
       case types.GET_POSTS: {
@@ -30,6 +29,7 @@ const defaultState = {
         return {
           ...state,
           error: action.error,
+          loading: false,
         }
       }
   

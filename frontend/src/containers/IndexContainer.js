@@ -1,46 +1,33 @@
 import React, { Component } from 'react'
 import Post from '../components/Post'
-import { connect } from 'react-redux'
-import { getAllPostsAction } from '../actions/post-info-actions'
+import { connect } from 'react-redux';
 
-// import {getAllPostsApi} from '../utils/api'
 
 
 class IndexContainer extends Component {
 
-    state = {
-
-    }
-
-    componentDidMount(){
-        const {getAllPostsAction} = this.props
-        getAllPostsAction()
-        // getAllPostsApi()
-    }
-
     render(){
-      return(<div></div>)   
+        const {loading, allPosts, error} = this.props
+      return(
+          <div>
+            {loading && (<div>Carregando!!!!</div>)}
+            {allPosts && allPosts.map(post => (<Post key={post.id} post={post}/>))}
+            {error && (<div>{error}</div>)}
+          </div>
+          
+      )   
     }
 }
 
-const mapStateToProps = (state, props) => ({
-    allPosts: state.postInfo.allPosts
-})
+const mapStateToProps = (state) => {
+    return {
+        allPosts: state.postInfo.allPosts,
+        loading: state.postInfo.loading,
+        error: state.postInfo.error
+    };
+};
 
-
-// const mapDispatchToProps = dispatch => ({
-//     getAllPosts: () => dispatch(getAllPostsAction)
-// })
-
-
-// export default connect(mapStateToProps, mapDispatchToProps)(IndexContainer)
-
-export default connect(mapStateToProps, {
-    getAllPostsAction,
-  })(IndexContainer)
-
-// export default IndexContainer
-
+export default connect(mapStateToProps)(IndexContainer)
 
 
 
