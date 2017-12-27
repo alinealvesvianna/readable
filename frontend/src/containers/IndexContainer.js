@@ -7,23 +7,31 @@ import { connect } from 'react-redux';
 class IndexContainer extends Component {
 
     render(){
-     const {loading, allPosts, error} = this.props
+     const {loading, allPosts, error, filterName} = this.props
       return(
           <div>
             {loading && (<div>Carregando!!!!</div>)}
-            {allPosts && allPosts.map(post => (<Post key={post.id} post={post}/>))}
+
+            {allPosts && filterName  && (
+                filterName !== 'all' ? 
+                (allPosts.filter(post => post.category === filterName).map(post => <Post key={post.id} post={post} />)) :
+                (allPosts.map(post => <Post key={post.id} post={post} />))
+            )}
+
             {error && (<div>{error}</div>)}
+
           </div>
           
       )   
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
     return {
         allPosts: state.postInfo.allPosts,
         loading: state.postInfo.loading,
-        error: state.postInfo.error
+        error: state.postInfo.error,
+        filterName: ownProps.filterName
     };
 };
 

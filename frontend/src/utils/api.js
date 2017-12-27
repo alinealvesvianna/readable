@@ -5,8 +5,8 @@ axios.defaults.baseURL = BASE_URL_ENDPOINT;
 axios.defaults.headers.common["Authorization"] = "bananinha";
   
 
-export const getAllPostsApi = () => 
-    axios.get("/posts")
+export const getAllApi = (path) => 
+    axios.get(path)
     .then(response => {
         console.log(response.data)
         return response.data

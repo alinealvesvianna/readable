@@ -1,12 +1,26 @@
 import { createSelector } from 'reselect'
 
-
+debugger
 const postInfoSelector = state => state.postInfo.allPosts
+const getVisibilityFilter = state => state.categoryInfo.allCategories
 
 
-export const getPostSelected = createSelector(
-    postInfoSelector.find(post => post.id === post.ownProps.id)
-)
+// export const getVisiblePosts = createSelector(
+//     postInfoSelector.find(post => post.id === post.ownProps.id)
+// )
+
+
+export const getVisiblePosts = createSelector(
+    [getVisibilityFilter.categories, postInfoSelector ],
+    (visibilityFilter, allPosts) => {
+        if(visibilityFilter ===  'all'){
+            return allPosts  
+        }
+        else {
+            return allPosts.filter(post => post.category === visibilityFilter)
+        }
+    }
+  )
 
 
 // export const getPostSelected = createSelector(

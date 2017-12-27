@@ -1,5 +1,5 @@
 import * as types from './actions-types'
-import {getAllPostsApi} from '../utils/api'
+import {getAllApi} from '../utils/api'
 
 
 const getPosts = () => ({
@@ -23,7 +23,7 @@ const getPostsError = (error) => ({
 export const getAllPostsAction = () => {
 	return dispatch => {
   	 dispatch(getPosts())
-     getAllPostsApi()
+     getAllApi("/posts")
     .then(data => dispatch(getPostsSuccess(data)))
     .catch(error => dispatch(getPostsError(error.message)))
   }

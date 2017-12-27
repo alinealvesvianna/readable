@@ -1,11 +1,12 @@
 import postInfo from './post-info-reducer'
-import testeReducer from './reducer-test'
+import categoryInfo from './category-info-reducer'
+
 
 import { combineReducers } from 'redux'
 
 const rootReducer = combineReducers({
     postInfo,
-    testeReducer
+    categoryInfo
   })
   
   export default rootReducer
