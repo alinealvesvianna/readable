@@ -1,25 +1,39 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux';
 
 
 class PostContainer extends Component {
 
     render(){
-        const {id, title, body} = this.props.post
+        const {id, allPosts} = this.props
+
         return(
             <div>
-                <h1> essa a página do post {id}</h1>
-                <h1>{this.props.post.title}</h1>
-                <p>{this.props.post.body}</p>
+            {allPosts &&
+                (allPosts.map((post => {
+                    if (post.id === id) {
+                        return (
+                            <div>
+                                <h1>{post.title}</h1>
+                                <p>{post.body}</p>
+                            </div>
+                        )
+                    }
+                })))
+            }            
             </div>
         )
     }
 
 }
 
-// PostContainer.propTypes = {
-//     post: PropTypes.object
-//   }
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        allPosts: state.postInfo.allPosts
+    };
+};
 
 
-  export default PostContainer
+  export default connect(mapStateToProps)(PostContainer)

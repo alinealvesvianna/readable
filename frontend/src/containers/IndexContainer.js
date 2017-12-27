@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 class IndexContainer extends Component {
 
     render(){
-        const {loading, allPosts, error} = this.props
+     const {loading, allPosts, error} = this.props
       return(
           <div>
             {loading && (<div>Carregando!!!!</div>)}
@@ -28,6 +28,4 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(IndexContainer)
-
-
 

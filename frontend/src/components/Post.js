@@ -1,8 +1,9 @@
 import React from 'react'
-import {  Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Post = (props) => {
     const {id, title} = props.post
+
     return(
         <div>
             <Link

@@ -4,6 +4,7 @@ import PostContainer from '../containers/PostContainer'
 import { getAllPostsAction } from '../actions/post-info-actions'
 
 import { Route } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 
 
@@ -16,32 +17,24 @@ class App extends Component {
  
 
   render() {
-    const  {allPosts} = this.props
     return (
-      <div className="App">
-        <Route exact path="/" render={() => <IndexContainer/>}/>
-        <Route
-        exact
-        path="/post/:id"
-        render={
-          ({match}) => {
-            let id = match.params.id;
-            let post;
+        <div className="App">
+            <main className="container">
+                <Route exact path="/"
+                    render={() => (<IndexContainer />)}/>
 
-            if(allPosts){
-                 post = allPosts.find((post) => {
-                    if (post.id === id) {
-                        return post
-                    }
-                })
-            } 
-            return (
-              <PostContainer id={id} post={post ? post : id}/>
-            )
-          }
-        }
-      />
-      </div>
+                <Route
+                    exact
+                    path="/post/:id"
+                    render={
+                    ({match}) => {
+                    let id = match.params.id;
+                    return (
+                        <PostContainer id={id} />
+                    )
+                }}/>
+            </main>
+        </div>
     );
   }
 }
@@ -49,11 +42,13 @@ class App extends Component {
 const mapStateToProps = (state) => {
     return {
         allPosts: state.postInfo.allPosts,
+        loading: state.postInfo.loading,
+        error: state.postInfo.error
     };
 };
 
-export default connect(mapStateToProps, {
-    getAllPostsAction,
-  })(App)
 
-// export default App;
+export default withRouter(connect(mapStateToProps, {
+    getAllPostsAction,
+  })(App))
+
