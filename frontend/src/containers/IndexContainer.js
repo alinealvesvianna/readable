@@ -18,6 +18,7 @@ class IndexContainer extends Component {
                 (allPosts.map(post => <Post key={post.id} post={post} />))
             )}
 
+
             {error && (<div>{error}</div>)}
 
           </div>

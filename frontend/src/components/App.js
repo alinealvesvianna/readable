@@ -4,8 +4,8 @@ import PostContainer from '../containers/PostContainer'
 import { getAllPostsAction } from '../actions/post-info-actions'
 import { getAllCategoriesAction } from '../actions/category-info-action'
 
-import { Route } from 'react-router-dom'
-import { withRouter } from 'react-router-dom'
+// import { Route } from 'react-router-dom'
+import { withRouter, Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 
 import Header from  '../components/Header'
@@ -28,7 +28,7 @@ class App extends Component {
             </nav>
             <main className="container">
                 <Route exact path="/"
-                    render={() => (<IndexContainer />)}/>
+                    render={() => (<Redirect to="/all" />)}/>
 
                 <Route
                     exact
