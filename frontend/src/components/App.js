@@ -3,8 +3,6 @@ import IndexContainer from '../containers/IndexContainer'
 import PostContainer from '../containers/PostContainer'
 import { getAllPostsAction } from '../actions/post-info-actions'
 import { getAllCategoriesAction } from '../actions/category-info-action'
-
-// import { Route } from 'react-router-dom'
 import { withRouter, Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 
@@ -57,14 +55,6 @@ class App extends Component {
     );
   }
 }
-
-// const mapStateToProps = (state) => {
-//     return {
-//         allPosts: state.postInfo.allPosts,
-//         loading: state.postInfo.loading,
-//         error: state.postInfo.error
-//     };
-// };
 
 
 export default withRouter(connect(null, {

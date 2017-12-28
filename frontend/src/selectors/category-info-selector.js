@@ -1,6 +1,5 @@
 import { createSelector } from 'reselect'
 
-debugger
 const postInfoSelector = state => state.postInfo.allPosts
 const getVisibilityFilter = state => state.categoryInfo.allCategories
 

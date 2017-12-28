@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 
 class IndexContainer extends Component {
-
+    
     render(){
      const {loading, allPosts, error, filterName} = this.props
       return(
@@ -17,7 +17,6 @@ class IndexContainer extends Component {
                 (allPosts.filter(post => post.category === filterName).map(post => <Post key={post.id} post={post} />)) :
                 (allPosts.map(post => <Post key={post.id} post={post} />))
             )}
-
 
             {error && (<div>{error}</div>)}
 
