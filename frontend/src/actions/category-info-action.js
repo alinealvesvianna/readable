@@ -2,6 +2,7 @@ import * as types from './actions-types'
 import {getAllApi} from '../utils/api'
 
 
+
 const getCategories = () => ({
     type: types.GET_CATEGORIES,
 })
@@ -24,6 +25,7 @@ export const getAllCategoriesAction = () => {
 	return dispatch => {
   	 dispatch(getCategories())
      getAllApi("/categories")
+    //  apiFetch("/categories")
     .then(data => dispatch(getCategoriesSuccess(data)))
     .catch(error => dispatch(getCategoriesError(error.message)))
   }

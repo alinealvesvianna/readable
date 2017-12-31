@@ -21,6 +21,25 @@ export const getAllApi = (path) =>
         }
       });
 
+     
+
+
+      export const postDataApi = (path, data) => 
+      axios.post(path, data)
+      .then(response => {
+          console.log(response.data)
+          return response.data
+      })
+      .catch(function (error) {
+          if (error.response) {
+            checkStatus(error.response.status)
+          } else if (error.request) {
+              throw Error(`Ops... Erro de requisição ${error.request.responseText}`);
+          } else {
+            throw Error(`Ops... Alguma coisa deu muito errado ${error.message.responseText}`);
+          }
+        }); 
+        
 
 
 export const checkStatus = response => {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import IndexContainer from '../containers/IndexContainer'
 import PostContainer from '../containers/PostContainer'
+import NewPostContainer from '../containers/NewPostContainer'
 import { getAllPostsAction } from '../actions/post-info-actions'
 import { getAllCategoriesAction } from '../actions/category-info-action'
 import { withRouter, Route, Redirect } from 'react-router-dom'
@@ -49,6 +50,12 @@ class App extends Component {
                     <IndexContainer filterName={path} />
                 )
             }}/>
+
+            <Route
+            exact
+            path="/add-post"
+            render={() => (<NewPostContainer />)}/>
+
 
             </main>
         </div>

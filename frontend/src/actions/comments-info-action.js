@@ -25,6 +25,7 @@ export const getAllCommentsAction = (id) => {
 	return dispatch => {
   	 dispatch(getComments())
      getAllApi(`/posts/${id}/comments`)
+    // apiFetch(`/posts/${id}/comments`)
     .then(data => dispatch(getCommentsSuccess(data)))
     .catch(error => dispatch(getCommentsError(error.message)))
   }

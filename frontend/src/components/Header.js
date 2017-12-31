@@ -10,17 +10,20 @@ class Header extends Component {
         const {allCategories, loading, error} = this.props
         return(
             <ul>
-            {allCategories &&
-                (allCategories.categories.map(category => 
-                     (<li key={category.name}>
-                        <NavLink to={ `/${category.path}`} strict>{category.name}
-                        </NavLink>
-                    </li>)
-                ))
-            }
-            <li key={"all"}>
-                <NavLink to={"/all"} strict>all posts</NavLink>
-            </li>
+                {allCategories &&
+                    (allCategories.categories.map(category => 
+                        (<li key={category.name}>
+                            <NavLink to={ `/${category.path}`} strict>{category.name}
+                            </NavLink>
+                        </li>)
+                    ))
+                }
+                <li key={"all"}>
+                    <NavLink to={"/all"} strict>all posts</NavLink>
+                </li>
+                <li>
+                    <NavLink to ={'/add-post'} strict>Incluir comentário</NavLink>
+                </li>
             </ul>       
     )
     }
