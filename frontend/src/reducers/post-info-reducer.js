@@ -33,7 +33,6 @@ const initialState = {
       }    
 
       case types.POST_DATA_POST_SUCCESS: {
-          debugger
         return {
           ...state,
           loading: false,

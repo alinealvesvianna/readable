@@ -25,7 +25,6 @@ export const getAllCategoriesAction = () => {
 	return dispatch => {
   	 dispatch(getCategories())
      getAllApi("/categories")
-    //  apiFetch("/categories")
     .then(data => dispatch(getCategoriesSuccess(data)))
     .catch(error => dispatch(getCategoriesError(error.message)))
   }

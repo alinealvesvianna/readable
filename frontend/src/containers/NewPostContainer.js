@@ -6,25 +6,34 @@ import {idGenerator, getTimestamp} from '../utils/utils'
 
 class NewPostContainer extends Component {
 
-    state = {
-        selectValue:''
+    handleSubmit = event => {
+
+
+        event.preventDefault()
+ 
+        let values = {}
+
+        for (let input of event.target) {
+            if(input.name !== ""){
+                values = {
+                   ...values,
+                   [input.name] : input.value
+               }
+            }       
+        } 
+
+        let valuesConsolidate = {
+                ...values,
+                id: idGenerator(),
+                timestamp: getTimestamp()
+        }
+        this.props.postDataPostAction(valuesConsolidate)
+
     }
 
-    handleSelectChange = event => {
-        this.setState({
-            selectValue: event.target.value
-        })
-      }
-
-    handleSubmit = values => {
-        values.id = idGenerator()
-        values.timestamp = getTimestamp();
-        console.log('são os valores', values)
-        this.props.postDataPostAction(values)
-      }
 
     render(){
-        const {allCategories, loading, error, postSuccess} = this.props
+        const {loading, error, postSuccess, allCategories} = this.props
 
         return(
             <div>
@@ -41,9 +50,9 @@ class NewPostContainer extends Component {
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        allCategories: state.categoryInfo.allCategories,
         loading: state.postInfo.loading,
         error: state.postInfo.error,
+        allCategories: state.categoryInfo.allCategories,
         postSuccess: state.postInfo.postSuccess,
     };
 };

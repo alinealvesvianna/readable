@@ -1,45 +1,67 @@
-import React from 'react'
-import { Field, reduxForm } from 'redux-form'
-import {renderField} from '../components/RenderField'
+import React, {Component} from 'react'
+import Field from '../components/Field'
 import {validate} from '../utils/form-validation'
 
-let Form = props => {
 
-    const {handleSubmit, allCategories, submitting} = props
+
+class Form extends Component {
+
+  state = {
+    inputValues: {}
+  }
+
+  handleChange = (event) => {
+    this.setState({
+      inputValues: {
+        ...this.state.inputValues,
+       [event.target.name] : event.target.value
+      }
+    })
+  }
+
+  render(){
+
+    const {allCategories, submitting, onSubmit} = this.props
+    const {inputValues} = this.state
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={onSubmit}>
 
-            <Field
+          <Field
             name="title"
             type="text"
-            component={renderField}
             label="Título"
+            value={inputValues.title}
+            onChange={this.handleChange}
           />
 
           <Field
           name="author"
           type="text"
-          component={renderField}
           label="Autor"
+          value={inputValues.author}
+          onChange={this.handleChange}        
         />
 
         <Field
         name="body"
         type="text"
-        component={renderField}
         label="Texto do Post"
+        value={inputValues.body}
+        onChange={this.handleChange}    
       />
 
-            <label htmlFor="category" className="form-control-label">Categoria:</label>
-            <Field name="category" component="select">
-                <option value="">Select a category</option>
-                {allCategories && 
-                (allCategories.categories.map((category) => (
-                    <option key={category.path} value={category.path}>{category.name}</option>)
-                ))
-                }
-          </Field>
+          <label htmlFor="category" className="form-control-label">Categoria:</label>
+          <select name="category" 
+            value={inputValues.category} 
+            onChange={this.handleChange}>
+              <option value="" key={'selectOption'}>Select a category</option>
+              {allCategories && 
+              (allCategories.categories.map((category) => (
+                  <option key={category.path} value={category.path}>{category.name}</option>)
+              ))
+              }
+          </select>
 
           <button type="submit" disabled={submitting}>
           Submit
@@ -47,16 +69,10 @@ let Form = props => {
 
         </form>
     )
+
+  }
+
 }
 
-//  Form = reduxForm({
-//     // a unique name for the form
-//     form: 'contact'
-//   })(Form)
 
-  export default reduxForm({
-    form: 'form', // a unique identifier for this form
-    validate, // <--- validation function given to redux-form
-  })(Form)
-
-//   export default Form
+  export default Form

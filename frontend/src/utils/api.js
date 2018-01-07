@@ -8,7 +8,7 @@ axios.defaults.headers.common["Authorization"] = "bananinha";
 export const getAllApi = (path) => 
     axios.get(path)
     .then(response => {
-        console.log(response.data)
+        // console.log(response.data)
         return response.data
     })
     .catch(function (error) {
@@ -27,7 +27,7 @@ export const getAllApi = (path) =>
       export const postDataApi = (path, data) => 
       axios.post(path, data)
       .then(response => {
-          console.log(response.data)
+        //   console.log(response.data)
           return response.data
       })
       .catch(function (error) {
