@@ -41,6 +41,31 @@ const initialState = {
         }
       }
 
+      case types.VOTE_ERROR_POST: {
+        return {
+          ...state,
+          error: action.error,
+          loading: false,
+        }
+      }
+
+      case types.VOTE_SUCCESS_POST: {
+        let votes = state.allPosts.map(post => {
+            if(post.id === action.dataVote.id){
+                post.voteScore = action.dataVote.voteScore
+            }
+            return post
+        }
+      )
+
+        return {
+          ...state,
+          loading: false,
+          allPosts:  votes,
+          postSuccess: true
+        }
+      }
+
   
       default:
         return state

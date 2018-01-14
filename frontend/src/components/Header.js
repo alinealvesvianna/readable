@@ -22,7 +22,7 @@ class Header extends Component {
                     <NavLink to={"/all"} strict>all posts</NavLink>
                 </li>
                 <li>
-                    <NavLink to ={'/add-post'} strict>Incluir comentário</NavLink>
+                    <NavLink to ={'/add-post'} strict>Incluir Post</NavLink>
                 </li>
             </ul>       
     )

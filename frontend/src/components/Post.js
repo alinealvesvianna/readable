@@ -11,10 +11,11 @@ const Post = (props) => {
             to={{
             pathname: `/post/${id}`,
             }}>
-                <h1>{title}</h1>
-                <p>{voteScore}</p>
-                <p>{timestamp}</p>
-                <p>{author}</p>
+                <span>id:{id}</span>
+                <h1>title:{title}</h1>
+                <p>vote score: {voteScore}</p>
+                <p>timestamp: {timestamp}</p>
+                <p>author: {author}</p>
             </Link>
         </div>
     )

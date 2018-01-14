@@ -3,8 +3,22 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import {getAllCommentsAction} from '../actions/comments-info-action'
 import Comment from '../components/Comment'
+import Vote from '../components/Vote'
+import {postVoteAction} from '../actions/post-info-actions'
 
 class PostContainer extends Component {
+
+    handleVote = (event) => {
+        event.preventDefault()
+        this.props.postVoteAction(
+            this.props.id,
+            {
+                'option': event.target.className
+            }
+        )
+    }
+
+
 
     componentDidMount(){
         this.props.getAllCommentsAction(this.props.id)
@@ -20,12 +34,13 @@ class PostContainer extends Component {
                     if (post.id === id) {
                         return (
                             <div key={id}>
-                                <h1>{post.title}</h1>
-                                <p>{post.body}</p>
-                                <p>{post.category}</p>
-                                <p>{post.author}</p>
-                                <p>{post.voteScore}</p>
-                                <span>{post.timestamp}</span>
+                                <span>id: {id}</span>
+                                <h1>title: {post.title}</h1>
+                                <p>body: {post.body}</p>
+                                <p>category: {post.category}</p>
+                                <p>author: {post.author}</p>
+                                <p>voteScore: {post.voteScore}</p>
+                                <span>timestamp: {post.timestamp}</span>
                             </div>
                         )
                     }
@@ -34,6 +49,7 @@ class PostContainer extends Component {
             {allComments &&
                 allComments.map(comment => <Comment key={comment.id} comment={comment}/>)
             }
+            <Vote onClick={this.handleVote}/>
             </div>
         )
     }
@@ -44,11 +60,14 @@ class PostContainer extends Component {
 const mapStateToProps = (state, ownProps) => {
     return {
         allPosts: state.postInfo.allPosts,
-        allComments: state.commentsInfo.allComments
+        allComments: state.commentsInfo.allComments,
+        loading: state.postInfo.loading,
+        error: state.postInfo.error
     };
 };
 
 
   export default connect(mapStateToProps,{
-    getAllCommentsAction
+    getAllCommentsAction,
+    postVoteAction
   })(PostContainer)

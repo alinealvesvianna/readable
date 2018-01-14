@@ -27,6 +27,7 @@ class NewPostContainer extends Component {
                 id: idGenerator(),
                 timestamp: getTimestamp()
         }
+        
         this.props.postDataPostAction(valuesConsolidate)
 
     }
