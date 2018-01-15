@@ -11,5 +11,3 @@ const Vote  = props => {
 }
 
 export default Vote
-
-// function vote(token, id, option)

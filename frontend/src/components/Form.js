@@ -21,11 +21,13 @@ class Form extends Component {
 
   render(){
 
-    const {allCategories, submitting, onSubmit} = this.props
+    const {allCategories, submitting, onSubmit, type} = this.props
     const {inputValues} = this.state
 
     return (
         <form onSubmit={onSubmit}>
+
+        {type === 'post' && (
 
           <Field
             name="title"
@@ -34,7 +36,7 @@ class Form extends Component {
             value={inputValues.title}
             onChange={this.handleChange}
           />
-
+        )}
           <Field
           name="author"
           type="text"
@@ -46,22 +48,25 @@ class Form extends Component {
         <Field
         name="body"
         type="text"
-        label="Texto do Post"
+        label={type === 'post' ? 'Texto do Post' : 'Texto do Comentário'}
         value={inputValues.body}
         onChange={this.handleChange}    
       />
-
-          <label htmlFor="category" className="form-control-label">Categoria:</label>
-          <select name="category" 
-            value={inputValues.category} 
-            onChange={this.handleChange}>
-              <option value="" key={'selectOption'}>Select a category</option>
-              {allCategories && 
-              (allCategories.categories.map((category) => (
-                  <option key={category.path} value={category.path}>{category.name}</option>)
-              ))
-              }
-          </select>
+        {type === 'post' && (
+            <div>
+                <label htmlFor="category" className="form-control-label">Categoria:</label>
+                <select name="category" 
+                value={inputValues.category} 
+                onChange={this.handleChange}>
+                    <option value="" key={'selectOption'}>Select a category</option>
+                    {allCategories && 
+                    (allCategories.categories.map((category) => (
+                        <option key={category.path} value={category.path}>{category.name}</option>)
+                    ))
+                    }
+                </select>
+            </div>
+        )}
 
           <button type="submit" disabled={submitting}>
           Submit
@@ -73,6 +78,10 @@ class Form extends Component {
   }
 
 }
+
+Form.defaultProps = {
+    type: 'post',
+  };
 
 
   export default Form

@@ -39,7 +39,7 @@ class NewPostContainer extends Component {
         return(
             <div>
                 {loading && (<div>Carregando!!!!</div>)}
-                <Form onSubmit={this.handleSubmit} allCategories={allCategories} />
+                <Form onSubmit={this.handleSubmit} allCategories={allCategories}  />
                 {error && (<div>{error}</div>)}
                 {postSuccess && (<div>Post feito com sucesso!</div>)}
 

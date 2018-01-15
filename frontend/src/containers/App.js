@@ -55,8 +55,7 @@ class App extends Component {
             exact
             path="/add-post"
             render={() => (<NewPostContainer />)}/>
-
-
+            
             </main>
         </div>
     );

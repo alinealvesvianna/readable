@@ -47,7 +47,6 @@ export const getAllPostsAction = () => {
 	return dispatch => {
   	 dispatch(isLoadingPost())
      getAllApi("/posts")
-
     .then(data => dispatch(getPostsSuccess(data)))
     .catch(error => dispatch(isErrorPost(error.message)))
   }
