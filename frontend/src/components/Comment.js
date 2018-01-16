@@ -1,6 +1,6 @@
 import React from 'react'
 import Vote from '../components/Vote'
-
+import {Link} from 'react-router-dom'
 
 const Comment = props => {
 
@@ -12,6 +12,10 @@ const Comment = props => {
 
     return(
         <div>
+            <Link
+                to={{
+                pathname: `/edit-comment/${comment.id}`,
+                }}>Editar</Link>
             <hr />
             <span>id comment: {comment.id}</span>            
             <span>timestamp comment: {comment.timestamp}</span>

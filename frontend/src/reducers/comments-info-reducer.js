@@ -41,6 +41,22 @@ const initialState = {
           }
       }
 
+      case types.PUT_DATA_COMMENT_SUCCESS: {
+        let commentModified = state.allComments.map(comment => {
+            if(comment.id === action.dataComment.id){
+                comment = action.dataComment
+            }
+            return comment
+        })
+
+        return {
+          ...state,
+          loading: false,
+          allComments: commentModified,
+          postCommentsSuccess: true
+        }
+      }      
+
       case types.VOTE_ERROR_POST: {
         return {
           ...state,

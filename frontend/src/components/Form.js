@@ -20,7 +20,7 @@ class Form extends Component {
   }
 
   componentWillMount(){
-      const {post} = this.props
+      const {post, comment} = this.props
       if (this.props.post){
           this.setState({
               inputValues:{
@@ -31,11 +31,20 @@ class Form extends Component {
               } 
         })
       }
+      if (this.props.comment){
+        this.setState({
+            inputValues:{
+                title : comment.title,
+                author: comment.author,
+                body: comment.body,
+            } 
+      })
+    }
   }
 
   render(){
 
-    const {allCategories, submitting, onSubmit, type, post} = this.props
+    const {allCategories, submitting, onSubmit, type, post, comment} = this.props
     const {inputValues} = this.state
 
     return (
@@ -59,11 +68,11 @@ class Form extends Component {
             onChange={this.handleChange}        
         />
 
-        {post && (
+        {(post && comment) && (
             <Field
                 name="voteScore"
                 type="hidden"
-                value={post.voteScore}      
+                value={post ? post.voteScore : comment.voteScore}      
             />
         )}
 

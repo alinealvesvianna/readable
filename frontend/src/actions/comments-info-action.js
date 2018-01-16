@@ -1,5 +1,5 @@
 import * as types from './actions-types'
-import {getAllApi, postDataApi} from '../utils/api'
+import {getAllApi, postDataApi, putDataApi} from '../utils/api'
 
 
 const isLoadingComments = () => ({
@@ -31,6 +31,15 @@ const postDataCommentSuccess = (dataComment) => {
     }    
 }
 
+const putDataCommentSuccess = (dataComment) => {
+    return dispatch => {
+        dispatch({
+            type: types.PUT_DATA_COMMENT_SUCCESS,
+            dataComment
+        })
+    }    
+}
+
 const voteErrorComment = error => ({
     type: types.VOTE_ERROR_POST,
     error
@@ -44,7 +53,6 @@ const voteSuccessComment = dataVote => {
         })
     }
 }
-
 
 export const getAllCommentsAction = (id) => {
 	return dispatch => {
@@ -61,6 +69,15 @@ export const postDataCommentsAction = (data) => {
         dispatch(isLoadingComments())
         postDataApi('/comments', data)
         .then(data => dispatch(postDataCommentSuccess(data)))
+        .catch(error => dispatch(isCommentsError(error.message)))
+    }
+}
+
+export const putDataCommentAction = (id, data) => {
+    return dispatch => {
+        dispatch(isLoadingComments())
+        putDataApi(`/comments/${id}`, data)
+        .then(data => dispatch(putDataCommentSuccess(data)))
         .catch(error => dispatch(isCommentsError(error.message)))
     }
 }

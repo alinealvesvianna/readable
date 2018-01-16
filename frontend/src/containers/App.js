@@ -65,12 +65,21 @@ class App extends Component {
                     ({match}) => {
                         let id = match.params.id;
                         let category = match.params.category;
-                        console.log('eh o match', match)
                         return (
-                            <EditContainer id={id} category={category} />
+                            <EditContainer idPost={id} category={category} />
                         )
-                }}/>            
+                }}/>          
             
+                <Route
+                    exact
+                    path="/edit-comment/:id"
+                    render={
+                    ({match}) => {
+                        let id = match.params.id;
+                        return (
+                            <EditContainer idComment={id} />
+                        )
+                }}/>                   
             </main>
         </div>
     );
