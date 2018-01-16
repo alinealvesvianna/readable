@@ -1,5 +1,5 @@
 import * as types from './actions-types'
-import {getAllApi, postDataApi} from '../utils/api'
+import {getAllApi, postDataApi, putDataApi} from '../utils/api'
 
 
 const isLoadingPost = () => ({
@@ -24,6 +24,15 @@ const postDataPostSuccess = (dataPost) => {
     return dispatch => {
         dispatch({
             type: types.POST_DATA_POST_SUCCESS,
+            dataPost
+        })
+    }    
+}
+
+const putDataPostSuccess = (dataPost) => {
+    return dispatch => {
+        dispatch({
+            type: types.PUT_DATA_POST_SUCCESS,
             dataPost
         })
     }    
@@ -57,6 +66,15 @@ export const postDataPostAction = (data) => {
         dispatch(isLoadingPost())
         postDataApi('/posts', data)
         .then(data => dispatch(postDataPostSuccess(data)))
+        .catch(error => dispatch(isErrorPost(error.message)))
+    }
+}
+
+export const putDataPostAction = (id, data) => {
+    return dispatch => {
+        dispatch(isLoadingPost())
+        putDataApi(`/posts/${id}`, data)
+        .then(data => dispatch(putDataPostSuccess(data)))
         .catch(error => dispatch(isErrorPost(error.message)))
     }
 }

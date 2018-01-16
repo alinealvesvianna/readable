@@ -8,6 +8,7 @@ const Field = props => {
     <div>
       <input placeholder={props.label} name={props.name} 
         type={props.type} 
+        value={props.value}
         onChange={props.onChange} />
     </div>
   </div>

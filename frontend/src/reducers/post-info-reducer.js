@@ -41,6 +41,22 @@ const initialState = {
         }
       }
 
+      case types.PUT_DATA_POST_SUCCESS: {
+        let postModified = state.allPosts.map(post => {
+            if(post.id === action.dataPost.id){
+                post = action.dataPost
+            }
+            return post
+        })
+
+        return {
+          ...state,
+          loading: false,
+          allPosts: postModified,
+          postSuccess: true
+        }
+      }
+
       case types.VOTE_ERROR_POST: {
         return {
           ...state,

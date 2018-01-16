@@ -7,7 +7,7 @@ import Vote from '../components/Vote'
 import {postVoteAction} from '../actions/post-info-actions'
 import Form from '../components/Form'
 import {idGenerator, getTimestamp} from '../utils/utils'
-
+import {Link} from 'react-router-dom'
 
 
 class PostContainer extends Component {
@@ -25,8 +25,6 @@ class PostContainer extends Component {
 
     handleVoteComment = (event, idComment) => {
         event.preventDefault()
-        console.log(idComment)
-        console.log(event.target.className)
 
         this.props.postVoteCommentAction(
             idComment,
@@ -51,7 +49,7 @@ class PostContainer extends Component {
                    ...values,
                    [input.name] : input.value
                }
-            }       
+            }      
         } 
 
         let valuesConsolidate = {
@@ -65,47 +63,49 @@ class PostContainer extends Component {
 
     }
 
-
-
     componentDidMount(){
         this.props.getAllCommentsAction(this.props.id)
     }
 
     render(){
-        const {id, allPosts, allComments, loadingComments, errorComments, postCommentsSuccess} = this.props
+        const {id, category, allPosts, allComments, loadingComments, errorComments, postCommentsSuccess} = this.props
 
         return(
             <div>
-            {allPosts &&
-                (allPosts.map((post => {
-                    if (post.id === id) {
-                        return (
-                            <div key={id}>
-                                <span>id: {id}</span>
-                                <h1>title: {post.title}</h1>
-                                <p>body: {post.body}</p>
-                                <p>category: {post.category}</p>
-                                <p>author: {post.author}</p>
-                                <p>voteScore: {post.voteScore}</p>
-                                <span>timestamp: {post.timestamp}</span>
-                            </div>
-                        )
-                    }
-                })))
-            } 
-            <Vote onClick={this.handleVotePost}/>
+                <Link
+                to={{
+                pathname: `/edit-post/${category}/${id}`,
+                }}>Editar</Link>
+                {allPosts &&
+                    (allPosts.map((post => {
+                        if (post.id === id) {
+                            return (
+                                <div key={id}>
+                                    <span>id: {id}</span>
+                                    <h1>title: {post.title}</h1>
+                                    <p>body: {post.body}</p>
+                                    <p>category: {post.category}</p>
+                                    <p>author: {post.author}</p>
+                                    <p>voteScore: {post.voteScore}</p>
+                                    <span>timestamp: {post.timestamp}</span>
+                                </div>
+                            )
+                        }
+                    })))
+                } 
+                <Vote onClick={this.handleVotePost}/>
 
-            <hr />
+                <hr />
 
-            <Form onSubmit={this.handleSubmit} type="comment" />
-            {loadingComments && (<div>Carregando!!!!</div>)}
-            {errorComments && (<div>{errorComments}</div>)}
-            {postCommentsSuccess && (<div>Post feito com sucesso!</div>)}
-            
-             <h1> Comentários</h1>
-            {allComments &&
-                allComments.map(comment => <Comment key={comment.id} comment={comment} onClick={this.handleVoteComment}/>)
-            }
+                <Form onSubmit={this.handleSubmit} type="comment" />
+                {loadingComments && (<div>Carregando!!!!</div>)}
+                {errorComments && (<div>{errorComments}</div>)}
+                {postCommentsSuccess && (<div>Comentário feito com sucesso!</div>)}
+                
+                <h1> Comentários</h1>
+                {allComments &&
+                    allComments.map(comment => <Comment key={comment.id} comment={comment} onClick={this.handleVoteComment}/>)
+                }
 
             </div>
         )

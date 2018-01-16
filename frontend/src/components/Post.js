@@ -2,14 +2,14 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 
 const Post = (props) => {
-    const {id, title, voteScore, timestamp, author} = props.post
+    const {id, title, voteScore, timestamp, author, category} = props.post
 
     return(
         <div>
             <Link
             role="button"
             to={{
-            pathname: `/post/${id}`,
+            pathname: `/post/${category}/${id}`,
             }}>
                 <span>id:{id}</span>
                 <h1>title:{title}</h1>

@@ -19,9 +19,23 @@ class Form extends Component {
     })
   }
 
+  componentWillMount(){
+      const {post} = this.props
+      if (this.props.post){
+          this.setState({
+              inputValues:{
+                  title : post.title,
+                  author: post.author,
+                  body: post.body,
+                  category: post.category
+              } 
+        })
+      }
+  }
+
   render(){
 
-    const {allCategories, submitting, onSubmit, type} = this.props
+    const {allCategories, submitting, onSubmit, type, post} = this.props
     const {inputValues} = this.state
 
     return (
@@ -38,31 +52,40 @@ class Form extends Component {
           />
         )}
           <Field
-          name="author"
-          type="text"
-          label="Autor"
-          value={inputValues.author}
-          onChange={this.handleChange}        
+            name="author"
+            type="text"
+            label="Autor"
+            value={inputValues.author}
+            onChange={this.handleChange}        
         />
 
+        {post && (
+            <Field
+                name="voteScore"
+                type="hidden"
+                value={post.voteScore}      
+            />
+        )}
+
         <Field
-        name="body"
-        type="text"
-        label={type === 'post' ? 'Texto do Post' : 'Texto do Comentário'}
-        value={inputValues.body}
-        onChange={this.handleChange}    
-      />
+            name="body"
+            type="text"
+            label={type === 'post' ? 'Texto do Post' : 'Texto do Comentário'}
+            value={inputValues.body}
+            onChange={this.handleChange}    
+        />
+
         {type === 'post' && (
             <div>
                 <label htmlFor="category" className="form-control-label">Categoria:</label>
                 <select name="category" 
-                value={inputValues.category} 
-                onChange={this.handleChange}>
+                    value={inputValues.category} 
+                    onChange={this.handleChange}>
                     <option value="" key={'selectOption'}>Select a category</option>
-                    {allCategories && 
-                    (allCategories.categories.map((category) => (
-                        <option key={category.path} value={category.path}>{category.name}</option>)
-                    ))
+                        {allCategories && 
+                        (allCategories.categories.map((category) => (
+                            <option key={category.path} value={category.path}>{category.name}</option>)
+                        ))
                     }
                 </select>
             </div>

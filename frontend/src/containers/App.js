@@ -6,6 +6,7 @@ import { getAllPostsAction } from '../actions/post-info-actions'
 import { getAllCategoriesAction } from '../actions/category-info-action'
 import { withRouter, Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
+import EditContainer from '../containers/EditContainer'
 
 import Header from  '../components/Header'
 
@@ -31,30 +32,44 @@ class App extends Component {
 
                 <Route
                     exact
-                    path="/post/:id"
+                    path="/post/:category/:id"
                     render={
                     ({match}) => {
                     let id = match.params.id;
+                    let category = match.params.category;
                     return (
-                        <PostContainer id={id} />
+                        <PostContainer id={id} category={category} />
                     )
                 }}/>
 
                 <Route
-                exact
-                path="/:path"
-                render={
-                ({match}) => {
-                let path = match.params.path;
-                return (
-                    <IndexContainer filterName={path} />
-                )
-            }}/>
+                    exact
+                    path="/:path"
+                    render={
+                    ({match}) => {
+                    let path = match.params.path;
+                    return (
+                        <IndexContainer filterName={path} />
+                    )
+                }}/>
 
-            <Route
-            exact
-            path="/add-post"
-            render={() => (<NewPostContainer />)}/>
+                <Route
+                    exact
+                    path="/add-post"
+                    render={() => (<NewPostContainer />)}/>
+
+                <Route
+                    exact
+                    path="/edit-post/:category/:id"
+                    render={
+                    ({match}) => {
+                        let id = match.params.id;
+                        let category = match.params.category;
+                        console.log('eh o match', match)
+                        return (
+                            <EditContainer id={id} category={category} />
+                        )
+                }}/>            
             
             </main>
         </div>
