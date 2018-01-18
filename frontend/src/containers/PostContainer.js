@@ -1,16 +1,20 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
-import {getAllCommentsAction, postDataCommentsAction, postVoteCommentAction} from '../actions/comments-info-action'
+import {getAllCommentsAction, postDataCommentsAction, postVoteCommentAction, deleteCommentAction} from '../actions/comments-info-action'
 import Comment from '../components/Comment'
 import Vote from '../components/Vote'
-import {postVoteAction} from '../actions/post-info-actions'
+import {postVoteAction, deleteDataPostAction} from '../actions/post-info-actions'
 import Form from '../components/Form'
 import {idGenerator, getTimestamp} from '../utils/utils'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 
 
 class PostContainer extends Component {
+
+    state = {
+        redirect: false,
+    }
 
     handleVotePost = (event) => {
         event.preventDefault()
@@ -34,15 +38,10 @@ class PostContainer extends Component {
         )
     }
     
-
-
     handleSubmit = event => {
-
-
         event.preventDefault()
- 
-        let values = {}
 
+        let values = {}
         for (let input of event.target) {
             if(input.name !== ""){
                 values = {
@@ -51,7 +50,6 @@ class PostContainer extends Component {
                }
             }      
         } 
-
         let valuesConsolidate = {
                 ...values,
                 id: idGenerator(),
@@ -60,7 +58,17 @@ class PostContainer extends Component {
         }
         
         this.props.postDataCommentsAction(valuesConsolidate)
+    }
 
+    handleDelete = () => {
+        this.props.deleteDataPostAction(this.props.id)
+        this.setState({
+            redirect: true,
+        })
+    }
+
+    handleDeleteComment = (event) => {
+        this.props.deleteCommentAction(event.target.id)
     }
 
     componentDidMount(){
@@ -68,14 +76,18 @@ class PostContainer extends Component {
     }
 
     render(){
-        const {id, category, allPosts, allComments, loadingComments, errorComments, postCommentsSuccess} = this.props
+        const {id, category, allPosts, allComments, loadingComments, errorComments, postCommentsSuccess, postSuccess, isCommentDeleted} = this.props
+        const {redirect} = this.state
 
         return(
             <div>
+                {postSuccess && (<div>Post editado com sucesso</div>)}
                 <Link
                 to={{
                 pathname: `/edit-post/${category}/${id}`,
                 }}>Editar</Link>
+                <button onClick={this.handleDelete}>Excluir</button>
+                {redirect && <Redirect to="/"/>}
                 {allPosts &&
                     (allPosts.map((post => {
                         if (post.id === id) {
@@ -104,8 +116,13 @@ class PostContainer extends Component {
                 
                 <h1> Comentários</h1>
                 {allComments &&
-                    allComments.map(comment => <Comment key={comment.id} comment={comment} onClick={this.handleVoteComment}/>)
+                    allComments.map(comment => <Comment key={comment.id} comment={comment} onClick={this.handleVoteComment}>
+                            <button onClick={this.handleDeleteComment} id={comment.id}>Excluir</button>            
+                        </Comment>
+                    )
                 }
+
+                {isCommentDeleted && (<div>Comentário deletado com sucesso!</div>)}
 
             </div>
         )
@@ -122,7 +139,9 @@ const mapStateToProps = (state, ownProps) => {
         error: state.postInfo.error,
         loadingComments: state.commentsInfo.loading,
         errorComments: state.commentsInfo.error,
-        postCommentsSuccess: state.commentsInfo.postCommentsSuccess
+        postCommentsSuccess: state.commentsInfo.postCommentsSuccess,
+        postSuccess: state.postInfo.postSuccess,
+        isCommentDeleted: state.commentsInfo.isCommentDeleted,
     };
 };
 
@@ -130,6 +149,8 @@ const mapStateToProps = (state, ownProps) => {
   export default connect(mapStateToProps,{
     getAllCommentsAction,
     postVoteAction,
+    deleteDataPostAction,
     postDataCommentsAction,
-    postVoteCommentAction
+    postVoteCommentAction,
+    deleteCommentAction
   })(PostContainer)

@@ -4,6 +4,8 @@ import {putDataPostAction} from '../actions/post-info-actions'
 import {putDataCommentAction} from '../actions/comments-info-action'
 import Form from '../components/Form'
 import {getTimestamp} from '../utils/utils'
+import {Link, Redirect} from 'react-router-dom'
+
 
 
 class EditContainer extends Component {
@@ -71,7 +73,7 @@ class EditContainer extends Component {
 
         return(
             <div>
-            {loadingPost && (<div>Carregando!!!!</div>)}
+                {loadingPost && (<div>Carregando!!!!</div>)}
 
                 {(allPosts && idPost) &&
                     allPosts.map(post => {
@@ -80,7 +82,7 @@ class EditContainer extends Component {
                         }
                     })}
                     {errorPost && (<div>{errorPost}</div>)}
-                    {postSuccess && (<div>Post editado com sucesso!</div>)}
+                    {postSuccess && (<Redirect to={`/post/:category/${idPost}`}/>)}
 
 
                     {(allComments && idComment) &&

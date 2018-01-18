@@ -1,5 +1,5 @@
 import * as types from './actions-types'
-import {getAllApi, postDataApi, putDataApi} from '../utils/api'
+import {getAllApi, postDataApi, putDataApi, deleteDataApi} from '../utils/api'
 
 
 const isLoadingComments = () => ({
@@ -54,6 +54,15 @@ const voteSuccessComment = dataVote => {
     }
 }
 
+const deleteCommentSuccess = (dataComment) => {
+    return dispatch => {
+        dispatch({
+            type: types.DELETE_COMMENT_SUCCESS,
+            dataComment
+        })
+    }    
+}
+
 export const getAllCommentsAction = (id) => {
 	return dispatch => {
   	 dispatch(isLoadingComments())
@@ -62,7 +71,6 @@ export const getAllCommentsAction = (id) => {
     .catch(error => dispatch(isCommentsError(error.message)))
   }
 }
-
 
 export const postDataCommentsAction = (data) => {
     return dispatch => {
@@ -84,9 +92,18 @@ export const putDataCommentAction = (id, data) => {
 
 export const postVoteCommentAction = (id, data) => {
     return dispatch => {
-        dispatch(isLoadingComments)
+        dispatch(isLoadingComments())
         postDataApi(`comments/${id}`, data)
         .then(data => dispatch(voteSuccessComment(data)))
         .catch(error => dispatch(voteErrorComment(error.message)))
+    }
+}
+
+export const deleteCommentAction = (id, data) => {
+    return dispatch => {
+        dispatch(isLoadingComments())
+        deleteDataApi(`/comments/${id}`, data)
+        .then(data => dispatch(deleteCommentSuccess(data)))
+        .catch(error => dispatch(isCommentsError(error.message)))
     }
 }

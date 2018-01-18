@@ -15,7 +15,8 @@ const Comment = props => {
             <Link
                 to={{
                 pathname: `/edit-comment/${comment.id}`,
-                }}>Editar</Link>
+                }}>Editar
+            </Link>
             <hr />
             <span>id comment: {comment.id}</span>            
             <span>timestamp comment: {comment.timestamp}</span>
@@ -23,6 +24,7 @@ const Comment = props => {
             <p>comment author: {comment.author}</p>
             <p>comment body: {comment.body}</p>
             <Vote onClick={handleVote}/>
+            {props.children}
         </div>
     )
 

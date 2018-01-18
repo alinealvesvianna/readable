@@ -81,6 +81,22 @@ const initialState = {
           postCommentsSuccess: true
         }
       }
+
+      case types.DELETE_COMMENT_SUCCESS: {
+
+      let commentModified = state.allComments.filter((comment) => {
+          if (comment.id !== action.dataComment.id) {
+            return comment;
+          }
+      })
+
+      return {
+        ...state,
+        loading: false,
+        allComments: commentModified,
+        isCommentDeleted: true,
+      }
+    }
   
       default:
         return state

@@ -53,6 +53,21 @@ export const putDataApi = (path, data) =>
         }
 }); 
 
+export const deleteDataApi = (path, data) => 
+    axios.delete(path, data)
+    .then(response => {
+        return response.data
+    })
+    .catch(function (error) {
+        if (error.response) {
+        checkStatus(error.response.status)
+        } else if (error.request) {
+            throw Error(`Ops... Erro de requisição ${error.request.responseText}`);
+        } else {
+        throw Error(`Ops... Alguma coisa deu muito errado ${error.message.responseText}`);
+        }
+}); 
+
 
 export const checkStatus = response => {
     if (

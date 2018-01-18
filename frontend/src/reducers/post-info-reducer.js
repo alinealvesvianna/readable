@@ -1,6 +1,5 @@
 import * as types from '../actions/actions-types'
 
-
 const initialState = {
     loading: false,
     error: null
@@ -81,6 +80,22 @@ const initialState = {
           postSuccess: true
         }
       }
+
+      case types.POST_DATA_DELETE: {
+
+        let postModified = state.allPosts.filter((post) => {
+            if (post.id !== action.dataPost.id) {
+              return post;
+            }
+        })
+
+        return {
+          ...state,
+          loading: false,
+          allPosts: postModified,
+          isPostDeleted: true,
+        }
+      }      
 
   
       default:
