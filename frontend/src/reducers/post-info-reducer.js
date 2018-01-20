@@ -6,7 +6,7 @@ const initialState = {
   }
   
   export default (state = initialState, action) => {
-    switch (action.type) {
+    switch (action.type){
 
       case types.GET_POSTS_SUCCESS: {
         return {
@@ -16,7 +16,7 @@ const initialState = {
         }
       }
 
-      case types.ORDER_POST: {
+      case types.ORDER_POST_VOTE_DEFAULT: {
         let arrayOrder = action.items.sort((a, b) => {
             return a.voteScore < b.voteScore;
         })
@@ -25,6 +25,27 @@ const initialState = {
             allPostsOrderVote: arrayOrder,
         }
       }
+
+      case types.ORDER_UP: {
+        let orderUpData = action.orderDataUp.sort((a, b) => {
+            return a[action.typeOrder] < b[action.typeOrder]
+
+        })
+        return {
+            ...state,
+            allPostsOrderVote: orderUpData.map(data => (data)),
+        }
+      }      
+
+      case types.ORDER_DOWN: {
+        let orderDownData = action.orderDataDown.sort((a, b) => {
+            return a[action.typeOrder] > b[action.typeOrder]
+        })
+        return {
+            ...state,
+            allPostsOrderVote: orderDownData.map(data => (data)),
+        }
+      }      
 
       case types.IS_ERROR_POST: {
         return {

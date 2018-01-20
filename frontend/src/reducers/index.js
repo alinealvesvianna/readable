@@ -8,7 +8,7 @@ import { combineReducers } from 'redux'
 const rootReducer = combineReducers({
     postInfo,
     categoryInfo,
-    commentsInfo
+    commentsInfo,
   })
   
   export default rootReducer

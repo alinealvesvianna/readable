@@ -1,29 +1,37 @@
 import React, { Component } from 'react'
 import Post from '../components/Post'
-import { connect } from 'react-redux';
+import Order from '../components/Order'
+import { connect } from 'react-redux'
+import {orderPostAction} from '../actions/post-info-actions'
 
 
 
 class IndexContainer extends Component {
+
+    orderPost = (event, type) => {
+        this.props.orderPostAction(event.target.className, type)
+    }
     
     render(){
-     const {loading, allPostsOrderVote, error, filterName, isPostDeleted} = this.props
-      return(
-          <div>
-            {loading && (<div>Carregando!!!!</div>)}
-            {isPostDeleted && (<div>Seu post foi deletado com sucesso!</div>)}
-
-            {allPostsOrderVote && filterName  && (
-                filterName !== 'all' ? 
-                (allPostsOrderVote.filter(post => post.category === filterName).map(post => <Post key={post.id} post={post} />)) :
-                (allPostsOrderVote.map(post => <Post key={post.id} post={post} />))
-            )}
-
-            {error && (<div>{error}</div>)}
-
-          </div>
-          
-      )   
+        debugger
+        const {loading, allPostsOrderVote, error, filterName, isPostDeleted} = this.props
+        return(
+                <div>
+                    <Order onClick={this.orderPost} type="timestamp" orderNameUp="Ordenar por postagem mais recente" orderNameDown="Ordenar por postagem menos recente"  />
+                    <br />
+                    <br />
+                    <br />
+                    <Order onClick={this.orderPost} type="voteScore" orderNameUp="Ordenar por postagem mais votada" orderNameDown="Ordenar por postagem menos votada"  />
+                    {loading && (<div>Carregando!!!!</div>)}
+                    {isPostDeleted && (<div>Seu post foi deletado com sucesso!</div>)}
+                    {allPostsOrderVote && filterName  && (
+                        filterName !== 'all' ? 
+                        (allPostsOrderVote.filter(post => post.category === filterName).map(post => <Post key={post.id} post={post} />)) :
+                        (allPostsOrderVote.map(post => <Post key={post.id} post={post} />))
+                    )}
+                    {error && (<div>{error}</div>)}
+                </div> 
+        )   
     }
 }
 
@@ -37,5 +45,7 @@ const mapStateToProps = (state, ownProps) => {
     };
 };
 
-export default connect(mapStateToProps)(IndexContainer)
+export default connect(mapStateToProps, {
+    orderPostAction
+})(IndexContainer)
 

@@ -8,3 +8,9 @@ export const getTimestamp = () => {
     let timeStamp = new Date();
     return timeStamp.getTime()
 }
+
+export const dateFilter = (timestamp) => {
+    let date = new Date(timestamp);
+    return date.toDateString();
+  };
+  

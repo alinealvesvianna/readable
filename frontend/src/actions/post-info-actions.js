@@ -15,15 +15,15 @@ const getPostsSuccess = (allPosts) => {
     }
 }
 
-const orderPost = () => {
+const orderPostVoteDefault = () => {
     return (dispatch, getState) => {
         let items = getState().postInfo.allPosts
         dispatch({
-            type: types.ORDER_POST,
+            type: types.ORDER_POST_VOTE_DEFAULT,
             items      
         })
     }
-}
+} 
 
 const isErrorPost = (error) => ({
     type: types.IS_ERROR_POST,
@@ -71,12 +71,34 @@ const voteSuccessPost = dataVote => {
     }
 }
 
+const orderDown = (typeOrder) => {
+    return (dispatch, getState) => {
+        let orderDataDown = getState().postInfo.allPosts
+        dispatch({
+            type: types.ORDER_DOWN,
+            typeOrder,
+            orderDataDown
+        })
+    }
+}
+
+const orderUp = (typeOrder) => {
+    return (dispatch, getState) => {
+        let orderDataUp = getState().postInfo.allPosts
+        dispatch({
+            type: types.ORDER_UP,
+            typeOrder,
+            orderDataUp
+        })
+    }
+}
+
 export const getAllPostsAction = () => {
 	return dispatch => {
   	 dispatch(isLoadingPost())
      getAllApi("/posts")
     .then(data => dispatch(getPostsSuccess(data)))
-    .then(() => dispatch(orderPost()))
+    .then(() => dispatch(orderPostVoteDefault()))
     .catch(error => dispatch(isErrorPost(error.message)))
   }
 }
@@ -86,7 +108,7 @@ export const postDataPostAction = (data) => {
         dispatch(isLoadingPost())
         postDataApi('/posts', data)
         .then(data => dispatch(postDataPostSuccess(data)))
-        .then(() => dispatch(orderPost()))
+        .then(() => dispatch(orderPostVoteDefault()))
         .catch(error => dispatch(isErrorPost(error.message)))
     }
 }
@@ -96,7 +118,7 @@ export const putDataPostAction = (id, data) => {
         dispatch(isLoadingPost())
         putDataApi(`/posts/${id}`, data)
         .then(data => dispatch(putDataPostSuccess(data)))
-        .then(() => dispatch(orderPost()))
+        .then(() => dispatch(orderPostVoteDefault()))
         .catch(error => dispatch(isErrorPost(error.message)))
     }
 }
@@ -106,7 +128,7 @@ export const deleteDataPostAction = (id, data) => {
         dispatch(isLoadingPost())
         deleteDataApi(`/posts/${id}`, data)
         .then(data => dispatch(deleteDataPostSuccess(data)))
-        .then(() => dispatch(orderPost()))
+        .then(() => dispatch(orderPostVoteDefault()))
         .catch(error => dispatch(isErrorPost(error.message)))
     }
 }
@@ -116,7 +138,18 @@ export const postVoteAction = (id, data) => {
         dispatch(isLoadingPost)
         postDataApi(`posts/${id}`, data)
         .then(data => dispatch(voteSuccessPost(data)))
-        .then(() => dispatch(orderPost()))
+        .then(() => dispatch(orderPostVoteDefault()))
         .catch(error => dispatch(voteErrorPost(error.message)))
+    }
+}
+
+export const orderPostAction = (orderName, typeOrder) => {
+    return dispatch => {
+        if(orderName === 'orderDown'){
+            dispatch(orderDown(typeOrder)) 
+        }
+        else {
+            dispatch(orderUp(typeOrder))
+        }
     }
 }

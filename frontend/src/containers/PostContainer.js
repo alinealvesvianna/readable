@@ -6,7 +6,7 @@ import Comment from '../components/Comment'
 import Vote from '../components/Vote'
 import {postVoteAction, deleteDataPostAction} from '../actions/post-info-actions'
 import Form from '../components/Form'
-import {idGenerator, getTimestamp} from '../utils/utils'
+import {idGenerator, getTimestamp, dateFilter} from '../utils/utils'
 import {Link, Redirect} from 'react-router-dom'
 
 
@@ -99,7 +99,7 @@ class PostContainer extends Component {
                                     <p>category: {post.category}</p>
                                     <p>author: {post.author}</p>
                                     <p>voteScore: {post.voteScore}</p>
-                                    <span>timestamp: {post.timestamp}</span>
+                                    <span>timestamp: {dateFilter(post.timestamp)}</span>
                                 </div>
                             )
                         }

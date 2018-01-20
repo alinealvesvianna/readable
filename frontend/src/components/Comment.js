@@ -1,6 +1,7 @@
 import React from 'react'
 import Vote from '../components/Vote'
 import {Link} from 'react-router-dom'
+import {dateFilter} from '../utils/utils'
 
 const Comment = props => {
 
@@ -19,7 +20,7 @@ const Comment = props => {
             </Link>
             <hr />
             <span>id comment: {comment.id}</span>            
-            <span>timestamp comment: {comment.timestamp}</span>
+            <span>timestamp comment: {dateFilter(comment.timestamp)}</span>
             <span> comment votescore: {comment.voteScore}</span>
             <p>comment author: {comment.author}</p>
             <p>comment body: {comment.body}</p>

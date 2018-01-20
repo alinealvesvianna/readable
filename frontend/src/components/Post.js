@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import {dateFilter} from '../utils/utils'
+
 
 const Post = (props) => {
     const {id, title, voteScore, timestamp, author, category} = props.post
@@ -14,7 +16,7 @@ const Post = (props) => {
                 <span>id:{id}</span>
                 <h1>title:{title}</h1>
                 <p>vote score: {voteScore}</p>
-                <p>timestamp: {timestamp}</p>
+                <p>timestamp: {dateFilter(timestamp)}</p>
                 <p>author: {author}</p>
             </Link>
         </div>
