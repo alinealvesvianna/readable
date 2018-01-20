@@ -16,6 +16,16 @@ const getCommentsSuccess = (allComments) => {
     }
 }
 
+const orderComments = () => {
+    return (dispatch, getState) => {
+        let items = getState().commentsInfo.allComments
+        dispatch({
+            type: types.ORDER_COMMENTS,
+            items      
+        })
+    }
+}
+
 const isCommentsError = (error) => ({
     type: types.IS_COMMENTS_ERROR,
     error
@@ -68,6 +78,7 @@ export const getAllCommentsAction = (id) => {
   	 dispatch(isLoadingComments())
      getAllApi(`/posts/${id}/comments`)
     .then(data => dispatch(getCommentsSuccess(data)))
+    .then(() => dispatch(orderComments()))
     .catch(error => dispatch(isCommentsError(error.message)))
   }
 }
@@ -77,6 +88,7 @@ export const postDataCommentsAction = (data) => {
         dispatch(isLoadingComments())
         postDataApi('/comments', data)
         .then(data => dispatch(postDataCommentSuccess(data)))
+        .then(() => dispatch(orderComments()))
         .catch(error => dispatch(isCommentsError(error.message)))
     }
 }
@@ -86,6 +98,7 @@ export const putDataCommentAction = (id, data) => {
         dispatch(isLoadingComments())
         putDataApi(`/comments/${id}`, data)
         .then(data => dispatch(putDataCommentSuccess(data)))
+        .then(() => dispatch(orderComments()))
         .catch(error => dispatch(isCommentsError(error.message)))
     }
 }
@@ -95,6 +108,7 @@ export const postVoteCommentAction = (id, data) => {
         dispatch(isLoadingComments())
         postDataApi(`comments/${id}`, data)
         .then(data => dispatch(voteSuccessComment(data)))
+        .then(() => dispatch(orderComments()))
         .catch(error => dispatch(voteErrorComment(error.message)))
     }
 }
@@ -104,6 +118,7 @@ export const deleteCommentAction = (id, data) => {
         dispatch(isLoadingComments())
         deleteDataApi(`/comments/${id}`, data)
         .then(data => dispatch(deleteCommentSuccess(data)))
+        .then(() => dispatch(orderComments()))
         .catch(error => dispatch(isCommentsError(error.message)))
     }
 }

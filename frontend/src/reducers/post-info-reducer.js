@@ -16,6 +16,16 @@ const initialState = {
         }
       }
 
+      case types.ORDER_POST: {
+        let arrayOrder = action.items.sort((a, b) => {
+            return a.voteScore < b.voteScore;
+        })
+        return {
+            ...state,
+            allPostsOrderVote: arrayOrder,
+        }
+      }
+
       case types.IS_ERROR_POST: {
         return {
           ...state,
@@ -65,6 +75,7 @@ const initialState = {
       }
 
       case types.VOTE_SUCCESS_POST: {
+          
         let votes = state.allPosts.map(post => {
             if(post.id === action.dataVote.id){
                 post.voteScore = action.dataVote.voteScore

@@ -76,7 +76,7 @@ class PostContainer extends Component {
     }
 
     render(){
-        const {id, category, allPosts, allComments, loadingComments, errorComments, postCommentsSuccess, postSuccess, isCommentDeleted} = this.props
+        const {id, category, allPosts, allCommentsOrderVote, loadingComments, errorComments, postCommentsSuccess, postSuccess, isCommentDeleted} = this.props
         const {redirect} = this.state
 
         return(
@@ -115,8 +115,8 @@ class PostContainer extends Component {
                 {postCommentsSuccess && (<div>Comentário feito com sucesso!</div>)}
                 
                 <h1> Comentários</h1>
-                {allComments &&
-                    allComments.map(comment => <Comment key={comment.id} comment={comment} onClick={this.handleVoteComment}>
+                {allCommentsOrderVote &&
+                    allCommentsOrderVote.map(comment => <Comment key={comment.id} comment={comment} onClick={this.handleVoteComment}>
                             <button onClick={this.handleDeleteComment} id={comment.id}>Excluir</button>            
                         </Comment>
                     )
@@ -134,7 +134,7 @@ class PostContainer extends Component {
 const mapStateToProps = (state, ownProps) => {
     return {
         allPosts: state.postInfo.allPosts,
-        allComments: state.commentsInfo.allComments,
+        allCommentsOrderVote: state.commentsInfo.allCommentsOrderVote,
         loading: state.postInfo.loading,
         error: state.postInfo.error,
         loadingComments: state.commentsInfo.loading,

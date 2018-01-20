@@ -23,6 +23,16 @@ const initialState = {
         }
       }
 
+      case types.ORDER_COMMENTS: {
+        let arrayOrder = action.items.sort((a, b) => {
+            return a.voteScore < b.voteScore;
+        })
+        return {
+            ...state,
+            allCommentsOrderVote: arrayOrder,
+        }
+      }      
+
       case types.IS_COMMENTS_ERROR: {
         return {
           ...state,
