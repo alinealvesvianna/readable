@@ -86,8 +86,8 @@ class Form extends Component {
 
         {type === 'post' && (
             <div>
-                <label htmlFor="category" className="form-control-label">Categoria:</label>
-                <select name="category" 
+                <label htmlFor="category" className="label">Categoria</label>
+                <select className="select" name="category" 
                     value={inputValues.category} 
                     onChange={this.handleChange}>
                     <option value="" key={'selectOption'}>Select a category</option>
@@ -100,9 +100,9 @@ class Form extends Component {
             </div>
         )}
 
-          <button type="submit" disabled={submitting}>
-          Submit
-        </button>
+          <button type="submit" disabled={submitting} className="buttonSubmit">
+              Enviar
+         </button>
 
         </form>
     )

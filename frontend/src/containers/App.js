@@ -1,15 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import IndexContainer from '../containers/IndexContainer'
 import PostContainer from '../containers/PostContainer'
 import NewPostContainer from '../containers/NewPostContainer'
 import { getAllPostsAction } from '../actions/post-info-actions'
 import { getAllCategoriesAction } from '../actions/category-info-action'
 import { withRouter, Route, Redirect } from 'react-router-dom'
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 import EditContainer from '../containers/EditContainer'
-
 import Header from  '../components/Header'
-
 
 
 class App extends Component {
@@ -23,9 +21,7 @@ class App extends Component {
   render() {
     return (
         <div className="App">
-            <nav>
-                <Header />
-            </nav>
+            <Header />
             <main className="container">
                 <Route exact path="/"
                     render={() => (<Redirect to="/all" />)}/>
@@ -55,7 +51,7 @@ class App extends Component {
 
                 <Route
                     exact
-                    path="/add-post"
+                    path="/add-post/post"
                     render={() => (<NewPostContainer />)}/>
 
                 <Route

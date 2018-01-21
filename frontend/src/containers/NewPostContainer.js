@@ -38,6 +38,7 @@ class NewPostContainer extends Component {
 
         return(
             <div>
+                <h2 className="titlePage"> Novo Post</h2>
                 {loading && (<div>Carregando!!!!</div>)}
                 <Form onSubmit={this.handleSubmit} allCategories={allCategories}  />
                 {error && (<div>{error}</div>)}

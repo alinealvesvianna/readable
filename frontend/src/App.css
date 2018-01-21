@@ -1,25 +1,286 @@
+* {
+    box-sizing: border-box;
+}
+
+
+body{
+    margin: 0;
+    padding:0;
+    font-family: 'Open Sans', sans-serif;
+    box-sizing: border-box;
+}
+
 .App {
-  text-align: center;
+    margin: 0 auto;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.container{
+    max-width: 960px;
+    width: 100%;
+    margin: 50px auto;
+    padding: 0 15px;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+ul{
+    margin: 0;
+    padding: 0;
 }
 
-.App-title {
-  font-size: 1.5em;
+.header{
+    margin: 0;
+    width: 100%;
+    background: #222;
+    padding: 10px 0;
 }
 
-.App-intro {
-  font-size: large;
+.header ul{
+    list-style: none;
+    max-width: 960px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.header li{
+    display: inline-block;
+}
+
+.header a{
+    font-size: 1.166em;
+    color: #fff;
+    text-decoration: none;
+    padding: 0.5em;
+    text-transform: capitalize;
+}
+
+.header a:hover{
+    color: #ccc;
+    cursor: pointer;
+}
+
+.orderContainer{
+    width: 50%;
+    display: inline-block;
+    position: relative;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.voteContainer{
+    position: relative;
+    margin-top: 0px;
+    color: #908d8d;
+}
+
+.orderPosts{
+    border-bottom: 1px solid #e0f0f3;
+    border-top: 1px solid #e0f0f3;
+}
+
+.orderPosts h5 {
+    text-align: center;
+    font-size: 1.3em;
+    margin:20px 0;
+    color: #ccc;
+}
+
+.orderContainer span, 
+.voteContainer a {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+.containerPost p {
+    color:#908d8d;
+}
+
+.containerPost article{
+    border-bottom: 1px solid #e0f0f3;
+    padding-bottom: 1em;
+}
+
+.orderContainer span:hover,
+.voteContainer a:hover{
+    color: #ccc;
+}
+
+.orderContainer span:first-child,
+.voteContainer .downVote{
+    margin-right: 35px;
+}
+
+.orderContainer span:before,
+.voteContainer a:before{
+    content: '';
+    position: absolute;
+    right: -16px;
+    top: 7px;
+    width: 0; 
+    height: 0; 
+}
+
+.orderContainer .orderUp:before,
+.voteContainer .upVote:before{
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 7px solid #257775;
+}
+
+
+.orderContainer .orderDown:before,
+.voteContainer .downVote:before{
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 7px solid #257775;
+}
+
+.postPreview {
+    margin: 10px auto;
+    padding: 10px;
+    text-decoration: none;
+    background: #fff;
+    transition: background 0.5s;
+}
+
+.postPreview a{
+    text-decoration: none;
+}
+
+.postPreview:hover{
+    background: #e0f0f3;
+}
+
+.postPreview h2, 
+.containerPost h2,
+.titlePage {
+    font-size: 2em;
+    color: #908d8d;
+    font-weight: normal;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e0f0f3
+}
+
+.postPreview p{
+    color: #257775;
+    font-weight: 600;
+}
+
+.containerPost{
+    width: 100%;
+    margin: 0 auto;
+}
+
+.containerPost header{
+    padding: 10px 0;
+    border-bottom: 1px solid #e0f0f3;
+}
+
+.containerPost h2{
+    border-bottom: none;
+    padding: 0;
+}
+
+.containerPost span{
+    display: inline-block;
+    font-size: 1rem;
+    margin-right:10px;
+    color: #ccc;
+    /* font-weight: 600; */
+}
+
+.containerPost p{
+    font-size: 1.366rem;
+    line-height: 1.5;
+}
+
+.containerPost button, 
+.containerPost .edit-comment-button,
+.buttonSubmit{
+    padding: 10px;
+    font-size: 1.2em;
+    color: #008cff;
+    border: 1px solid #008cff;
+    text-decoration: none;
+    height: 45px;
+}
+
+.containerPost .edit-comment-button{
+    margin-left: 10px;
+}
+
+.containerPost button:hover,
+.containerPost .edit-comment-button:hover,
+.buttonSubmit:hover{
+    color: #0261af;
+    border: 1px solid #0261af;
+}
+
+.buttonSubmit{
+    margin-top: 20px;
+}
+
+.buttonsPost{
+    width: 50%;
+}
+
+.linkEdit,
+.linkEraser{
+    display: inline-block;
+    font-size: 1.16rem;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.linkEraser{
+    color: rgb(255, 0, 85)
+}
+
+.linkEdit{
+    margin-right: 10px;
+    color: #008cff;
+}
+
+.container-form{
+    margin-bottom: 20px;
+}
+
+.label{
+    display: block;
+    color: #908d8d;
+    font-size: 1.166em;
+    margin-bottom:10px;
+}
+
+.label::after{
+    content: ':';
+}
+
+.input, .select{
+    display: block;
+    width: 100%;
+    min-height: 40px;
+    padding: 10px;
+    border: 1px solid #008cff;
+}
+
+.select{
+    height: 40px;
+}
+
+.input::placeholder, .select:valid {
+    color: #ddd;
+    font-size: 1.2em;
+}
+
+.container-comment{
+    margin: 20px 0;
+    padding: 20px 0;
+    border-bottom: 1px solid #e0f0f3;
+}
+
+.buttonSubmit{
+
 }
 
 @keyframes App-logo-spin {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 import {dateFilter} from '../utils/utils'
 
 
@@ -7,19 +7,18 @@ const Post = (props) => {
     const {id, title, voteScore, timestamp, author, category} = props.post
 
     return(
-        <div>
+        <article className="postPreview">
             <Link
             role="button"
             to={{
             pathname: `/post/${category}/${id}`,
             }}>
-                <span>id:{id}</span>
-                <h1>title:{title}</h1>
-                <p>vote score: {voteScore}</p>
-                <p>timestamp: {dateFilter(timestamp)}</p>
-                <p>author: {author}</p>
+                <h2>{title}</h2>
+                <p>votos: {voteScore || 'Sem votos'}</p>
+                <p>{dateFilter(timestamp) || 'Sem data'}</p>
+                <p>autor: {author || 'Sem autor'}</p>
             </Link>
-        </div>
+        </article>
     )
 }
 

@@ -8,9 +8,8 @@ const Order = props => {
     }
 
     return(
-        <div>
+        <div className="orderContainer">
             <span className="orderUp" type={props.type} onClick={handleClick}>{props.orderNameUp}</span>
-            <br />
             <span className="orderDown" type={props.type} onClick={handleClick}>{props.orderNameDown}</span>
         </div>
     )

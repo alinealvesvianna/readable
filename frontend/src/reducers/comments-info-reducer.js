@@ -63,7 +63,7 @@ const initialState = {
           ...state,
           loading: false,
           allComments: commentModified,
-          postCommentsSuccess: true
+          editCommentsSuccess: true
         }
       }      
 

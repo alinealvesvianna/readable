@@ -12,20 +12,20 @@ const Comment = props => {
     }
 
     return(
-        <div>
+        <div className="container-comment">
+            <Vote onClick={handleVote}/>
+            <span>{dateFilter(comment.timestamp)}</span>
+            <span> votos: {comment.voteScore}</span>
+            <span>autor: {comment.author}</span>
+            <p>{comment.body}</p>
+            {props.children}
             <Link
+                className="edit-comment-button"
+                role="button"
                 to={{
                 pathname: `/edit-comment/${comment.id}`,
                 }}>Editar
-            </Link>
-            <hr />
-            <span>id comment: {comment.id}</span>            
-            <span>timestamp comment: {dateFilter(comment.timestamp)}</span>
-            <span> comment votescore: {comment.voteScore}</span>
-            <p>comment author: {comment.author}</p>
-            <p>comment body: {comment.body}</p>
-            <Vote onClick={handleVote}/>
-            {props.children}
+            </Link>            
         </div>
     )
 

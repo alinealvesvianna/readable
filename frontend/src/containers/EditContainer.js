@@ -69,11 +69,13 @@ class EditContainer extends Component {
     }    
 
     render(){
-        const {allPosts, allCategories, idPost, errorPost, postSuccess, loadingPost, allComments, idComment, errorComments, loadingComments, postCommentsSuccess } = this.props
+        const {allPosts, allCategories, idPost, errorPost, postSuccess, loadingPost, allComments, idComment, errorComments, loadingComments, postCommentsSuccess, editCommentsSuccess } = this.props
 
         return(
             <div>
                 {loadingPost && (<div>Carregando!!!!</div>)}
+
+                <h2 className="titlePage">Editar</h2>
 
                 {(allPosts && idPost) &&
                     allPosts.map(post => {
@@ -92,7 +94,7 @@ class EditContainer extends Component {
                             }
                     })}
                     {errorComments && (<div>{errorComments}</div>)}
-                    {postCommentsSuccess && (<div>Comentário editado com sucesso!</div>)}
+                    {editCommentsSuccess && (<div>Comentário editado com sucesso!</div>)}
     
             </div>)
     }
@@ -108,7 +110,8 @@ const mapStateToProps = (state, ownProps) => {
         postSuccess: state.postInfo.postSuccess,
         loadingComments: state.commentsInfo.loading,
         errorComments: state.commentsInfo.error,
-        postCommentsSuccess: state.commentsInfo.postCommentsSuccess
+        postCommentsSuccess: state.commentsInfo.postCommentsSuccess,
+        editCommentsSuccess: state.commentsInfo.editCommentsSuccess
     };
 };
 

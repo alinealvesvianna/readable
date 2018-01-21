@@ -13,15 +13,14 @@ class IndexContainer extends Component {
     }
     
     render(){
-        debugger
         const {loading, allPostsOrderVote, error, filterName, isPostDeleted} = this.props
         return(
                 <div>
-                    <Order onClick={this.orderPost} type="timestamp" orderNameUp="Ordenar por postagem mais recente" orderNameDown="Ordenar por postagem menos recente"  />
-                    <br />
-                    <br />
-                    <br />
-                    <Order onClick={this.orderPost} type="voteScore" orderNameUp="Ordenar por postagem mais votada" orderNameDown="Ordenar por postagem menos votada"  />
+                    <section className="orderPosts">
+                        <h5>Ordernar Postagem</h5>
+                        <Order onClick={this.orderPost} type="timestamp" orderNameUp="mais recente" orderNameDown="menos recente"  />
+                        <Order onClick={this.orderPost} type="voteScore" orderNameUp="mais votada" orderNameDown="menos votada"  />
+                    </section>
                     {loading && (<div>Carregando!!!!</div>)}
                     {isPostDeleted && (<div>Seu post foi deletado com sucesso!</div>)}
                     {allPostsOrderVote && filterName  && (

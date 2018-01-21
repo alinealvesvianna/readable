@@ -26,7 +26,6 @@ class PostContainer extends Component {
         )
     }
 
-
     handleVoteComment = (event, idComment) => {
         event.preventDefault()
 
@@ -80,41 +79,41 @@ class PostContainer extends Component {
         const {redirect} = this.state
 
         return(
-            <div>
+            <div className="containerPost">
                 {postSuccess && (<div>Post editado com sucesso</div>)}
-                <Link
-                to={{
-                pathname: `/edit-post/${category}/${id}`,
-                }}>Editar</Link>
-                <button onClick={this.handleDelete}>Excluir</button>
+                <div className="buttonsPost">
+                    <Link
+                        to={{
+                        pathname: `/edit-post/${category}/${id}`}}
+                        className="linkEdit">Editar</Link>
+                    <a className="linkEraser" onClick={this.handleDelete}>Excluir</a>                
+                </div>
                 {redirect && <Redirect to="/"/>}
                 {allPosts &&
                     (allPosts.map((post => {
                         if (post.id === id) {
                             return (
-                                <div key={id}>
-                                    <span>id: {id}</span>
-                                    <h1>title: {post.title}</h1>
-                                    <p>body: {post.body}</p>
-                                    <p>category: {post.category}</p>
-                                    <p>author: {post.author}</p>
-                                    <p>voteScore: {post.voteScore}</p>
-                                    <span>timestamp: {dateFilter(post.timestamp)}</span>
-                                </div>
+                                <article key={id}>
+                                    <header>
+                                        <h2>{post.title || 'Sem título'}</h2>
+                                        <span>{dateFilter(post.timestamp)}</span>
+                                        <span>categoria: {post.category || 'Sem categoria'}</span>
+                                        <span>autor: {post.author || 'Sem autor'}</span>
+                                        <span>votos: {post.voteScore || 'Sem Votos'}</span>
+                                        <Vote onClick={this.handleVotePost}/>
+                                    </header>
+                                    <p>{post.body}</p>
+                                </article>
                             )
                         }
                     })))
                 } 
-                <Vote onClick={this.handleVotePost}/>
-
-                <hr />
-
+                <h2> Comentários</h2>
                 <Form onSubmit={this.handleSubmit} type="comment" />
                 {loadingComments && (<div>Carregando!!!!</div>)}
                 {errorComments && (<div>{errorComments}</div>)}
-                {postCommentsSuccess && (<div>Comentário feito com sucesso!</div>)}
+                {(postCommentsSuccess && !isCommentDeleted) && (<div>Comentário feito com sucesso!</div>)}
                 
-                <h1> Comentários</h1>
                 {allCommentsOrderVote &&
                     allCommentsOrderVote.map(comment => <Comment key={comment.id} comment={comment} onClick={this.handleVoteComment}>
                             <button onClick={this.handleDeleteComment} id={comment.id}>Excluir</button>            
