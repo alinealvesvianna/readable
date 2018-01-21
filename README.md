@@ -2,9 +2,7 @@
 
 In order to get the application up and running first install the dependencies:
 
-## Start Developing
-
-To get started developing right away:
+## Setup
 
 * Install and start the API server
     - `cd api-server`
