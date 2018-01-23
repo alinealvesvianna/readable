@@ -28,5 +28,6 @@ export const VOTE_ERROR_COMMENT = 'VOTE_ERROR_COMMENT'
 export const VOTE_SUCCESS_POST = 'VOTE_SUCCESS_POST'
 export const VOTE_ERROR_POST = 'VOTE_ERROR_POST'
 
-export const SORT = 'SORT'
+export const SORTDOWN = 'SORTDOWN'
+export const SORTUP = 'SORTUP'
 

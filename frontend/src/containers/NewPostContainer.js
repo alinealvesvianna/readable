@@ -1,18 +1,15 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux';
-import Form from '../components/Form'
+import FormNewPost from '../components/FormNewPost'
 import {postDataPostAction} from '../actions/post-info-actions'
 import {idGenerator, getTimestamp} from '../utils/utils'
+
 
 class NewPostContainer extends Component {
 
     handleSubmit = event => {
-
-
         event.preventDefault()
- 
         let values = {}
-
         for (let input of event.target) {
             if(input.name !== ""){
                 values = {
@@ -29,23 +26,20 @@ class NewPostContainer extends Component {
         }
         
         this.props.postDataPostAction(valuesConsolidate)
-
     }
 
 
     render(){
-        const {loading, error, postSuccess, allCategories} = this.props
+        const {loading, error, postSuccess} = this.props
 
         return(
             <div>
                 <h2 className="titlePage"> Novo Post</h2>
                 {loading && (<div>Carregando!!!!</div>)}
-                <Form onSubmit={this.handleSubmit} allCategories={allCategories}  />
+                <FormNewPost onSubmit={this.handleSubmit} />
                 {error && (<div>{error}</div>)}
                 {postSuccess && (<div>Post feito com sucesso!</div>)}
-
-            </div>
-            
+            </div> 
         )
     }
 }
@@ -54,7 +48,6 @@ const mapStateToProps = (state, ownProps) => {
     return {
         loading: state.postInfo.loading,
         error: state.postInfo.error,
-        allCategories: state.categoryInfo.allCategories,
         postSuccess: state.postInfo.postSuccess,
     };
 };

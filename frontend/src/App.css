@@ -220,6 +220,12 @@ ul{
     margin-top: 20px;
 }
 
+.buttonSubmit:disabled,
+.buttonSubmit[disabled]{
+    color: #d5d9db;
+    border: 1px solid #afb5b9;
+}
+
 .buttonsPost{
     width: 50%;
 }
@@ -251,10 +257,10 @@ ul{
     font-size: 1.166em;
     margin-bottom:10px;
 }
-
+/* 
 .label::after{
     content: ':';
-}
+} */
 
 .input, .select{
     display: block;

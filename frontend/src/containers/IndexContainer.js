@@ -24,9 +24,10 @@ class IndexContainer extends Component {
     orderPost = (event, type) => {
         this.props.orderPostAction(event.target.className, type)
     }
-    
+
+
     render(){
-        const {loading, allPosts, error, filterName, isPostDeleted} = this.props
+        const {loading, allPostsOrderVote, error, filterName, isPostDeleted} = this.props
         return(
                 <div>
                     <section className="orderPosts">
@@ -36,9 +37,9 @@ class IndexContainer extends Component {
                     </section>
                     {loading && (<div>Carregando!!!!</div>)}
                     {isPostDeleted && (<div>Seu post foi deletado com sucesso!</div>)}
-                    {allPosts  && (
+                    {allPostsOrderVote  && (
                         filterName ? 
-                        (allPosts.filter(post => post.category === filterName).map(post =>
+                        (allPostsOrderVote.filter(post => post.category === filterName).map(post =>
                             {
                                 return(
                                     <div>
@@ -47,7 +48,9 @@ class IndexContainer extends Component {
                                             <Link
                                                 to={{
                                                 pathname: `/edit-post/${post.category}/${post.id}`}}
-                                                className="linkEdit">
+                                                className="linkEdit"
+                                                idPost={post.id}
+                                                category={post.category}>
                                                 Editar
                                             </Link>
                                             <a className="linkEraser" id={post.id} onClick={this.handleDelete}>Excluir</a>                
@@ -55,7 +58,7 @@ class IndexContainer extends Component {
                                     </div>
                                 )
                             })) :
-                            (allPosts.map(post => {
+                            (allPostsOrderVote.map(post => {
                                 return(
                                     <div>                                  
                                         <Post key={post.id} post={post} onClick={this.handleVotePost} />
@@ -63,7 +66,9 @@ class IndexContainer extends Component {
                                             <Link
                                                 to={{
                                                 pathname: `/edit-post/${post.category}/${post.id}`}}
-                                                className="linkEdit">
+                                                className="linkEdit"
+                                                idPost={post.id}
+                                                category={post.category}>
                                                 Editar
                                             </Link>
                                             <a className="linkEraser" id={post.id} onClick={this.handleDelete}>Excluir</a>                
@@ -79,12 +84,15 @@ class IndexContainer extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
+
+
     return {
         allPosts: state.postInfo.allPosts,
+        allPostsOrderVote: state.postInfo.allPostsOrderVote,
         loading: state.postInfo.loading,
         error: state.postInfo.error,
         filterName: ownProps.filterName,
-        isPostDeleted: state.postInfo.isPostDeleted
+        isPostDeleted: state.postInfo.isPostDeleted,
     };
 };
 
@@ -93,4 +101,3 @@ export default connect(mapStateToProps, {
     postVoteAction,
     deleteDataPostAction
 })(IndexContainer)
-

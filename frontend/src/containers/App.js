@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import IndexContainer from '../containers/IndexContainer'
 import PostContainer from '../containers/PostContainer'
+import EditPostContainer from '../containers/EditPostContainer'
 import NewPostContainer from '../containers/NewPostContainer'
 import { getAllPostsAction } from '../actions/post-info-actions'
 import { getAllCategoriesAction } from '../actions/category-info-action'
-import { withRouter, Route, Redirect } from 'react-router-dom'
+import { withRouter, Route} from 'react-router-dom'
 import { connect } from 'react-redux'
-import EditContainer from '../containers/EditContainer'
+import EditCommentContainer from '../containers/EditCommentContainer'
 import Header from  '../components/Header'
 
 
@@ -48,10 +49,10 @@ class App extends Component {
                         <IndexContainer filterName={path} />
                     )
                 }}/>
-
+              
                 <Route
                     exact
-                    path="/add-post/post"
+                    path="/add-post/new-post/post"
                     render={() => (<NewPostContainer />)}/>
 
                 <Route
@@ -62,18 +63,18 @@ class App extends Component {
                         let id = match.params.id;
                         let category = match.params.category;
                         return (
-                            <EditContainer idPost={id} category={category} />
+                            <EditPostContainer idPost={id} category={category} />
                         )
                 }}/>          
             
                 <Route
                     exact
-                    path="/edit-comment/:id"
+                    path="/edit-comment/comment/:id"
                     render={
                     ({match}) => {
                         let id = match.params.id;
                         return (
-                            <EditContainer idComment={id} />
+                            <EditCommentContainer idComment={id} />
                         )
                 }}/>                   
             </main>

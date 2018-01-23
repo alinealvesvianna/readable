@@ -5,7 +5,7 @@ import {dateFilter} from '../utils/utils'
 
 const Comment = props => {
 
-    const {comment} = props
+    const {comment, idComment} = props
 
     const handleVote = (event, id) => {
         props.onClick(event, comment.id)
@@ -23,7 +23,7 @@ const Comment = props => {
                 className="edit-comment-button"
                 role="button"
                 to={{
-                pathname: `/edit-comment/${comment.id}`,
+                pathname: `/edit-comment/comment/${idComment}`,
                 }}>Editar
             </Link>            
         </div>

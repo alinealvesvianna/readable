@@ -95,9 +95,7 @@ const initialState = {
         }
       }
 
-      case types.VOTE_SUCCESS_POST: {
-          debugger
-          
+      case types.VOTE_SUCCESS_POST: {          
         let votes = state.allPosts.map(post => {
             if(post.id === action.dataVote.id){
                 post.voteScore = action.dataVote.voteScore

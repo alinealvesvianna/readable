@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import {getAllCommentsAction, postDataCommentsAction, postVoteCommentAction, deleteCommentAction} from '../actions/comments-info-action'
 import Comment from '../components/Comment'
 import Vote from '../components/Vote'
 import {postVoteAction, deleteDataPostAction} from '../actions/post-info-actions'
-import Form from '../components/Form'
+import FormNewComment from '../components/FormNewComment'
 import {idGenerator, getTimestamp, dateFilter} from '../utils/utils'
 import {Link, Redirect} from 'react-router-dom'
 
@@ -81,48 +80,58 @@ class PostContainer extends Component {
         return(
             <div className="containerPost">
                 {postSuccess && (<div>Post editado com sucesso</div>)}
-                <div className="buttonsPost">
-                    <Link
-                        to={{
-                        pathname: `/edit-post/${category}/${id}`}}
-                        className="linkEdit">Editar</Link>
-                    <a className="linkEraser" onClick={this.handleDelete}>Excluir</a>                
-                </div>
                 {redirect && <Redirect to="/"/>}
                 {allPosts &&
                     (allPosts.map((post => {
-                        if (post.id === id) {
+                        if (post.id === id && !post.deleted) {
                             return (
-                                <article key={id}>
-                                    <header>
-                                        <h2>{post.title || 'Sem título'}</h2>
-                                        <span>{dateFilter(post.timestamp)}</span>
-                                        <span>categoria: {post.category || 'Sem categoria'}</span>
-                                        <span>autor: {post.author || 'Sem autor'}</span>
-                                        <span>votos: {post.voteScore || 'Sem Votos'}</span>
-                                        <span>comentários: {post.commentCount || 'Nenhum comentário'}</span>
-                                        <Vote onClick={this.handleVotePost}/>
-                                    </header>
-                                    <p>{post.body}</p>
-                                </article>
+                                <div>
+                                    <div className="buttonsPost">
+                                        <Link
+                                            to={{
+                                            pathname: `/edit-post/${category}/${id}`}}
+                                            className="linkEdit">Editar</Link>
+                                        <a className="linkEraser" onClick={this.handleDelete}>Excluir</a>                
+                                    </div>                                
+                                    <article key={id}>
+                                        <header>
+                                            <h2>{post.title || 'Sem título'}</h2>
+                                            <span>{dateFilter(post.timestamp)}</span>
+                                            <span>categoria: {post.category || 'Sem categoria'}</span>
+                                            <span>autor: {post.author || 'Sem autor'}</span>
+                                            <span>votos: {post.voteScore || 'Sem Votos'}</span>
+                                            <span>comentários: {post.commentCount || 'Nenhum comentário'}</span>
+                                            <Vote onClick={this.handleVotePost}/>
+                                        </header>
+                                        <p>{post.body}</p>
+                                    </article>                                
+                                
+                                    <h2> Comentários</h2>
+                                    <FormNewComment onSubmit={this.handleSubmit}/>
+                                    {loadingComments && (<div>Carregando!!!!</div>)}
+                                    {errorComments && (<div>{errorComments}</div>)}
+                                    {(postCommentsSuccess && !isCommentDeleted) && (<div>Comentário feito com sucesso!</div>)}
+
+                
+                                    {allCommentsOrderVote &&
+                                        allCommentsOrderVote.map(comment => 
+                                            <Comment key={comment.id} comment={comment} idComment={comment.id} onClick={this.handleVoteComment}>
+                                                <button onClick={this.handleDeleteComment} id={comment.id}>Excluir</button>            
+                                            </Comment>
+                                        )
+                                    }
+                    
+                                    {isCommentDeleted && (<div>Comentário deletado com sucesso!</div>)}                                    
+                                                    
+                                </div>
+
                             )
                         }
                     })))
                 } 
-                <h2> Comentários</h2>
-                <Form onSubmit={this.handleSubmit} type="comment" />
-                {loadingComments && (<div>Carregando!!!!</div>)}
-                {errorComments && (<div>{errorComments}</div>)}
-                {(postCommentsSuccess && !isCommentDeleted) && (<div>Comentário feito com sucesso!</div>)}
-                
-                {allCommentsOrderVote &&
-                    allCommentsOrderVote.map(comment => <Comment key={comment.id} comment={comment} onClick={this.handleVoteComment}>
-                            <button onClick={this.handleDeleteComment} id={comment.id}>Excluir</button>            
-                        </Comment>
-                    )
-                }
 
-                {isCommentDeleted && (<div>Comentário deletado com sucesso!</div>)}
+                {allPosts && allPosts.indexOf(id) === -1  && (<div>Esse post não existe, foi deletado.</div>)}
+
 
             </div>
         )
