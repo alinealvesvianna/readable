@@ -24,11 +24,11 @@ class App extends Component {
             <Header />
             <main className="container">
                 <Route exact path="/"
-                    render={() => (<Redirect to="/all" />)}/>
+                    render={() => (<IndexContainer />)}/>
 
                 <Route
                     exact
-                    path="/post/:category/:id"
+                    path="/:category/:id"
                     render={
                     ({match}) => {
                     let id = match.params.id;

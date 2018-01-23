@@ -4,9 +4,7 @@ import {putDataPostAction} from '../actions/post-info-actions'
 import {putDataCommentAction} from '../actions/comments-info-action'
 import Form from '../components/Form'
 import {getTimestamp} from '../utils/utils'
-import {Link, Redirect} from 'react-router-dom'
-
-
+import { Redirect} from 'react-router-dom'
 
 class EditContainer extends Component {
 
@@ -69,7 +67,7 @@ class EditContainer extends Component {
     }    
 
     render(){
-        const {allPosts, allCategories, idPost, errorPost, postSuccess, loadingPost, allComments, idComment, errorComments, loadingComments, postCommentsSuccess, editCommentsSuccess } = this.props
+        const {allPosts, allCategories, idPost, errorPost, postSuccess, loadingPost, allComments, idComment, errorComments, loadingComments, postCommentsSuccess } = this.props
 
         return(
             <div>
@@ -94,7 +92,7 @@ class EditContainer extends Component {
                             }
                     })}
                     {errorComments && (<div>{errorComments}</div>)}
-                    {editCommentsSuccess && (<div>Comentário editado com sucesso!</div>)}
+                    {postCommentsSuccess && (<div>Comentário editado com sucesso!</div>)}
     
             </div>)
     }
@@ -111,7 +109,6 @@ const mapStateToProps = (state, ownProps) => {
         loadingComments: state.commentsInfo.loading,
         errorComments: state.commentsInfo.error,
         postCommentsSuccess: state.commentsInfo.postCommentsSuccess,
-        editCommentsSuccess: state.commentsInfo.editCommentsSuccess
     };
 };
 

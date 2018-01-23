@@ -51,14 +51,14 @@ const putDataCommentSuccess = (dataComment) => {
 }
 
 const voteErrorComment = error => ({
-    type: types.VOTE_ERROR_POST,
+    type: types.VOTE_ERROR_COMMENT,
     error
 })
 
 const voteSuccessComment = dataVote => {
     return dispatch => {
        dispatch({
-            type: types.VOTE_SUCCESS_POST,
+            type: types.VOTE_SUCCESS_COMMENT,
             dataVote
         })
     }

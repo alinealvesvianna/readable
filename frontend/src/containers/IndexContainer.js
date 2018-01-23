@@ -3,17 +3,30 @@ import Post from '../components/Post'
 import Order from '../components/Order'
 import { connect } from 'react-redux'
 import {orderPostAction} from '../actions/post-info-actions'
-
-
+import {postVoteAction, deleteDataPostAction} from '../actions/post-info-actions'
+import {Link} from 'react-router-dom'
 
 class IndexContainer extends Component {
+
+    handleVotePost = (event, id) => {
+        this.props.postVoteAction(
+            id,
+            {
+                'option': event.target.className
+            }
+        )
+    }
+
+    handleDelete = (event) => {
+        this.props.deleteDataPostAction(event.target.id)
+    }
 
     orderPost = (event, type) => {
         this.props.orderPostAction(event.target.className, type)
     }
     
     render(){
-        const {loading, allPostsOrderVote, error, filterName, isPostDeleted} = this.props
+        const {loading, allPosts, error, filterName, isPostDeleted} = this.props
         return(
                 <div>
                     <section className="orderPosts">
@@ -23,10 +36,41 @@ class IndexContainer extends Component {
                     </section>
                     {loading && (<div>Carregando!!!!</div>)}
                     {isPostDeleted && (<div>Seu post foi deletado com sucesso!</div>)}
-                    {allPostsOrderVote && filterName  && (
-                        filterName !== 'all' ? 
-                        (allPostsOrderVote.filter(post => post.category === filterName).map(post => <Post key={post.id} post={post} />)) :
-                        (allPostsOrderVote.map(post => <Post key={post.id} post={post} />))
+                    {allPosts  && (
+                        filterName ? 
+                        (allPosts.filter(post => post.category === filterName).map(post =>
+                            {
+                                return(
+                                    <div>
+                                        <Post key={post.id} post={post} onClick={this.handleVotePost} />
+                                        <div className="buttonsPost">
+                                            <Link
+                                                to={{
+                                                pathname: `/edit-post/${post.category}/${post.id}`}}
+                                                className="linkEdit">
+                                                Editar
+                                            </Link>
+                                            <a className="linkEraser" id={post.id} onClick={this.handleDelete}>Excluir</a>                
+                                        </div>                                        
+                                    </div>
+                                )
+                            })) :
+                            (allPosts.map(post => {
+                                return(
+                                    <div>                                  
+                                        <Post key={post.id} post={post} onClick={this.handleVotePost} />
+                                        <div className="buttonsPost">
+                                            <Link
+                                                to={{
+                                                pathname: `/edit-post/${post.category}/${post.id}`}}
+                                                className="linkEdit">
+                                                Editar
+                                            </Link>
+                                            <a className="linkEraser" id={post.id} onClick={this.handleDelete}>Excluir</a>                
+                                        </div>                                          
+                                    </div>
+                                )
+                            }))
                     )}
                     {error && (<div>{error}</div>)}
                 </div> 
@@ -36,7 +80,7 @@ class IndexContainer extends Component {
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        allPostsOrderVote: state.postInfo.allPostsOrderVote,
+        allPosts: state.postInfo.allPosts,
         loading: state.postInfo.loading,
         error: state.postInfo.error,
         filterName: ownProps.filterName,
@@ -45,6 +89,8 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 export default connect(mapStateToProps, {
-    orderPostAction
+    orderPostAction,
+    postVoteAction,
+    deleteDataPostAction
 })(IndexContainer)
 

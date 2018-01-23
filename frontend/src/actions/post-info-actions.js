@@ -98,7 +98,7 @@ export const getAllPostsAction = () => {
   	 dispatch(isLoadingPost())
      getAllApi("/posts")
     .then(data => dispatch(getPostsSuccess(data)))
-    .then(() => dispatch(orderPostVoteDefault()))
+    // .then(() => dispatch(orderPostVoteDefault()))
     .catch(error => dispatch(isErrorPost(error.message)))
   }
 }
@@ -108,7 +108,7 @@ export const postDataPostAction = (data) => {
         dispatch(isLoadingPost())
         postDataApi('/posts', data)
         .then(data => dispatch(postDataPostSuccess(data)))
-        .then(() => dispatch(orderPostVoteDefault()))
+        // .then(() => dispatch(orderPostVoteDefault()))
         .catch(error => dispatch(isErrorPost(error.message)))
     }
 }
@@ -118,7 +118,7 @@ export const putDataPostAction = (id, data) => {
         dispatch(isLoadingPost())
         putDataApi(`/posts/${id}`, data)
         .then(data => dispatch(putDataPostSuccess(data)))
-        .then(() => dispatch(orderPostVoteDefault()))
+        // .then(() => dispatch(orderPostVoteDefault()))
         .catch(error => dispatch(isErrorPost(error.message)))
     }
 }
@@ -128,7 +128,7 @@ export const deleteDataPostAction = (id, data) => {
         dispatch(isLoadingPost())
         deleteDataApi(`/posts/${id}`, data)
         .then(data => dispatch(deleteDataPostSuccess(data)))
-        .then(() => dispatch(orderPostVoteDefault()))
+        // .then(() => dispatch(orderPostVoteDefault()))
         .catch(error => dispatch(isErrorPost(error.message)))
     }
 }
@@ -138,7 +138,7 @@ export const postVoteAction = (id, data) => {
         dispatch(isLoadingPost)
         postDataApi(`posts/${id}`, data)
         .then(data => dispatch(voteSuccessPost(data)))
-        .then(() => dispatch(orderPostVoteDefault()))
+        // .then(() => dispatch(orderPostVoteDefault()))
         .catch(error => dispatch(voteErrorPost(error.message)))
     }
 }

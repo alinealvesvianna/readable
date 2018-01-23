@@ -100,6 +100,7 @@ class PostContainer extends Component {
                                         <span>categoria: {post.category || 'Sem categoria'}</span>
                                         <span>autor: {post.author || 'Sem autor'}</span>
                                         <span>votos: {post.voteScore || 'Sem Votos'}</span>
+                                        <span>comentários: {post.commentCount || 'Nenhum comentário'}</span>
                                         <Vote onClick={this.handleVotePost}/>
                                     </header>
                                     <p>{post.body}</p>

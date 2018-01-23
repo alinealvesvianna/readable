@@ -63,11 +63,11 @@ const initialState = {
           ...state,
           loading: false,
           allComments: commentModified,
-          editCommentsSuccess: true
+          postCommentsSuccess: true,
         }
       }      
 
-      case types.VOTE_ERROR_POST: {
+      case types.VOTE_ERROR_COMMENT: {
         return {
           ...state,
           error: action.error,
@@ -75,7 +75,7 @@ const initialState = {
         }
       }
 
-      case types.VOTE_SUCCESS_POST: {
+      case types.VOTE_SUCCESS_COMMENT: {
         let votes = state.allComments.map(comment => {
             if(comment.id === action.dataVote.id){
                 comment.voteScore = action.dataVote.voteScore
