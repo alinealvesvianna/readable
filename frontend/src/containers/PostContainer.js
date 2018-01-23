@@ -76,8 +76,7 @@ class PostContainer extends Component {
     render(){
         const {id, category, allPosts, allCommentsOrderVote, loadingComments, errorComments, postCommentsSuccess, postSuccess, isCommentDeleted} = this.props
         const {redirect} = this.state
-
-        return(
+            return(
             <div className="containerPost">
                 {postSuccess && (<div>Post editado com sucesso</div>)}
                 {redirect && <Redirect to="/"/>}
@@ -128,11 +127,8 @@ class PostContainer extends Component {
                             )
                         }
                     })))
-                } 
-
-                {allPosts && allPosts.indexOf(id) === -1  && (<div>Esse post não existe, foi deletado.</div>)}
-
-
+                }
+                {allPosts && ((allPosts.filter(el => el.id === id).length === 0) && (<div>Esse post não existe!</div>)) }
             </div>
         )
     }
