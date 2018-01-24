@@ -5,7 +5,7 @@ import Field from '../components/Field'
 class FormEditComment extends Component {
 
   state = {
-    inputValues: {}
+    inputValues: {},
   }
 
   handleChange = (event) => {
@@ -25,7 +25,7 @@ class FormEditComment extends Component {
                 author: comment.author,
                 body: comment.body,
                 voteScore: comment.voteScore,
-            } 
+            }
       })
     }
   }

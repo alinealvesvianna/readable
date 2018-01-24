@@ -23,7 +23,7 @@ const Comment = props => {
                 className="edit-comment-button"
                 role="button"
                 to={{
-                pathname: `/edit-comment/comment/${idComment}`,
+                pathname: `/edit-comment/${idComment}`,
                 }}>Editar
             </Link>            
         </div>

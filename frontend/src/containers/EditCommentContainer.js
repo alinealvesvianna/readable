@@ -1,70 +1,96 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {putDataCommentAction} from '../actions/comments-info-action'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { putDataCommentAction } from '../actions/comments-info-action'
 import FormEditComment from '../components/FormEditComment'
-import {getTimestamp} from '../utils/utils'
-import { Redirect} from 'react-router-dom'
+import { getTimestamp } from '../utils/utils'
+import { Redirect } from 'react-router-dom'
 
 class EditCommentContainer extends Component {
+  state = {
+    showMessage: false
+  }
 
-    handleSubmitComment = event => {
-        event.preventDefault()
+  componentDidMount() {
+    this.setState({
+        showMessage: false
+    })
+  }
 
-        let values = {}
+  handleSubmitComment = event => {
+    event.preventDefault()
 
-        for (let input of event.target) {
-            if(input.name !== ""){
-                values = {
-                   ...values,
-                   [input.name] : input.value
-               }
-            }
-            if(input.name === "voteScore"){
-                values = {
-                   ...values,
-                   [input.name] : parseInt(input.value, 10)
-               }
-            }        
-        } 
+    let values = {}
 
-        let valuesConsolidate = {
-                ...values,
-                id: this.props.idComment,
-                timestamp: getTimestamp(),
+    for (let input of event.target) {
+      if (input.name !== '') {
+        values = {
+          ...values,
+          [input.name]: input.value
         }
-        
-        this.props.putDataCommentAction(this.props.idComment, valuesConsolidate)
-    }    
-
-    render(){
-        const {allComments, idComment, errorComments, loadingComments, postCommentsSuccess } = this.props
-
-        return(
-            <div>
-                <h2 className="titlePage">Editar</h2>
-
-                    {(allComments && idComment) &&
-                        allComments.map(comment => {
-                            if(comment.id === idComment){
-                                return(<FormEditComment key={idComment} comment={comment} onSubmit={this.handleSubmitComment} />)
-                            }
-                    })}
-                    {errorComments && (<div>{errorComments}</div>)}
-                    {postCommentsSuccess && (<div>Comentário editado com sucesso!</div>)}
-    
-            </div>)
+      }
+      if (input.name === 'voteScore') {
+        values = {
+          ...values,
+          [input.name]: parseInt(input.value, 10)
+        }
+      }
     }
+
+    let valuesConsolidate = {
+      ...values,
+      id: this.props.idComment,
+      timestamp: getTimestamp()
+    }
+
+    this.props.putDataCommentAction(this.props.idComment, valuesConsolidate)
+
+    this.setState({
+        showMessage: true,
+    })
+  }
+
+  render() {
+    const {
+      allComments,
+      idComment,
+      errorComments,
+      loadingComments,
+      postCommentsSuccess
+    } = this.props
+
+    return (
+      <div>
+        <h2 className="titlePage">Editar Comentário</h2>
+
+        {allComments &&
+          idComment &&
+          allComments.map(comment => {
+            if (comment.id === idComment) {
+              return (
+                <FormEditComment
+                  key={idComment}
+                  comment={comment}
+                  onSubmit={this.handleSubmitComment}
+                />
+              )
+            }
+          })}
+        {errorComments && <div>{errorComments}</div>}
+        {(postCommentsSuccess && this.state.showMessage) && <div>Comentário editado com sucesso!</div>}
+      </div>
+    )
+  }
 }
 
 const mapStateToProps = (state, ownProps) => {
-    return {
-        allComments: state.commentsInfo.allComments,
-        loadingComments: state.commentsInfo.loading,
-        errorComments: state.commentsInfo.error,
-        postCommentsSuccess: state.commentsInfo.postCommentsSuccess,
-    };
-};
+  return {
+    allComments: state.commentsInfo.allComments,
+    loadingComments: state.commentsInfo.loading,
+    errorComments: state.commentsInfo.error,
+    postCommentsSuccess: state.commentsInfo.postCommentsSuccess
+  }
+}
 
 export default connect(mapStateToProps, {
-    putDataCommentAction
+  putDataCommentAction
 })(EditCommentContainer)

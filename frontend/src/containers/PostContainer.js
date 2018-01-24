@@ -88,7 +88,7 @@ class PostContainer extends Component {
                                     <div className="buttonsPost">
                                         <Link
                                             to={{
-                                            pathname: `/edit-post/${category}/${id}`}}
+                                            pathname: `/edit-post/${post.category}/${post.id}`}}
                                             className="linkEdit">Editar</Link>
                                         <a className="linkEraser" onClick={this.handleDelete}>Excluir</a>                
                                     </div>                                

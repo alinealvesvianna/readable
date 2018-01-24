@@ -69,7 +69,7 @@ class App extends Component {
             
                 <Route
                     exact
-                    path="/edit-comment/comment/:id"
+                    path="/edit-comment/:id"
                     render={
                     ({match}) => {
                         let id = match.params.id;
